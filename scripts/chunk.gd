@@ -84,7 +84,10 @@ func update() -> void:
 			tileMap.erase_cell(coordFromCell)
 			tileMap.set_cell(Vector2i(x, y), block.sourceAtlas, coordFromCell)
 
-func _input(_event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	if not event.is_action_pressed("w"):
+		return
+	
 	print("hai")
 	Global.noise.seed += 1
 	generate()

@@ -8,4 +8,4 @@
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=799073620]
 position = Vector2(611, 396)
-zoom = Vector2(3.875, 3.875)
+zoom = Vector2(3, 3)
