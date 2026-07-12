@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ccfy2p4neegb1"]
+
+[ext_resource type="PackedScene" uid="uid://c0q3qy171i1tk" path="res://scenes/chunk.tscn" id="1_nnsk1"]
+
+[node name="World" type="Node2D" unique_id=2019267694]
+
+[node name="Chunk" parent="." unique_id=2100667408 instance=ExtResource("1_nnsk1")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=799073620]
+position = Vector2(611, 396)
+zoom = Vector2(3.875, 3.875)

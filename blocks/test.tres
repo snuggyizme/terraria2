@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Block" format=3 uid="uid://cuqguqq65wurd"]
+
+[ext_resource type="Script" uid="uid://dmlb5pb67iuvc" path="res://scripts/resourceDefinitions/block.gd" id="1_ddi3a"]
+
+[resource]
+script = ExtResource("1_ddi3a")
+displayName = "testblock aka fairy floss go ahead eat it"
+displayDesc = "how did you get this..."
+atlasType = 1
+metadata/_custom_type_script = "uid://dmlb5pb67iuvc"
