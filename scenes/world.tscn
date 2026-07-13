@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://ccfy2p4neegb1"]
 
-[ext_resource type="PackedScene" uid="uid://c0q3qy171i1tk" path="res://scenes/chunk.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://b2sm6gwvyn4rk" path="res://scenes/playerCharacter.tscn" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://c0m83nl5c7xn8" path="res://scripts/chunkController.gd" id="2_rwgxs"]
 
 [node name="World" type="Node2D" unique_id=2019267694]
 
-[node name="Chunk" parent="." unique_id=2100667408 instance=ExtResource("1_nnsk1")]
+[node name="ChunkController" type="Node2D" parent="." unique_id=252043675 node_paths=PackedStringArray("player")]
+script = ExtResource("2_rwgxs")
+player = NodePath("../PlayerCharacter")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=799073620]
-position = Vector2(611, 396)
+[node name="PlayerCharacter" parent="." unique_id=1026959804 instance=ExtResource("2_4wyf3")]
+position = Vector2(-47, 201)
+baseSpeed = 300.0
+baseJump = 300.0
+baseGravity = 600.0
+baseAccel = 160.0
+baseFriction = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=799073620]
 zoom = Vector2(3, 3)
+metadata/_edit_lock_ = true

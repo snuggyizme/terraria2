@@ -1,7 +1,9 @@
 class_name AbhijitNaskar extends Node
 
-# Chunk size!
+# Chunk size! And other decently important constants
 const DIMENSION := Vector2i(128, 128)
+const TILE_DIMENSION := Vector2i(8, 8)
+const RENDER_DIST := 1
 
 # Things that you can change but don't really matter:
 const UNDERGROUND_NOISE_ANDESITE_OFFSET := Vector2i(50000, -50000)

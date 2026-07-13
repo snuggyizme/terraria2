@@ -7,10 +7,14 @@ var blocks: Array = []
 @onready var tileMap = $TileMapLayer
 
 func _ready() -> void:
+	global_position = chunkPosition * Global.DIMENSION * Global.TILE_DIMENSION
+	
 	generate()
 	update()
 
 func generate() -> void:
+	blocks.clear()
+	
 	for x in range(Global.DIMENSION.x):
 		blocks.append([])
 		blocks[x].resize(Global.DIMENSION.y)
@@ -85,11 +89,9 @@ func update() -> void:
 			tileMap.set_cell(Vector2i(x, y), block.sourceAtlas, coordFromCell)
 
 func _input(event: InputEvent) -> void:
-	if not event.is_action_pressed("w"):
+	if not event.is_action_pressed("x"):
 		return
-	
-	print("hai")
+
 	Global.noise.seed += 1
 	generate()
 	update()
-	print("ouch")
