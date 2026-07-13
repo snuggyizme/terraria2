@@ -11,7 +11,7 @@ const SURFACE_HEIGHT := 32
 const HILL_HEIGHT := 20
 const DIRT_BUFFER_SIZE := 4
 const UNDERGROUND_NOISE_CAVE_THRESHOLD = -0.1 ## < means open air
-const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.1 ## < means andesite
+const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.2 ## < means andesite
 
 var blockDict: Dictionary
 
