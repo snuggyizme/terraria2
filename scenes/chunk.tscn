@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://c0q3qy171i1tk"]
+[gd_scene format=3 uid="uid://c0q3qy171i1tk"]
 
 [ext_resource type="Script" uid="uid://dut8mh4356r5x" path="res://scripts/chunk.gd" id="1_jas4a"]
 [ext_resource type="TileSet" uid="uid://diletvp77y6xg" path="res://assets/resources/tileset.tres" id="2_jtw3q"]
@@ -7,5 +7,4 @@
 script = ExtResource("1_jas4a")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1475218190]
-tile_map_data = PackedByteArray("AAAAAP7/AQADAAYAAAD///7/AQADAAYAAAD+//7/AQADAAYAAAD9//7/AQADAAYAAAD8//7/AQADAAYAAAD8////AQADAAYAAAD8/wAAAQADAAYAAAD8/wEAAQADAAYAAAD9/wIAAQADAAYAAAD9/wMAAQADAAYAAAD+/wMAAQADAAYAAAD//wMAAQADAAYAAAAAAAMAAQADAAYAAAABAAMAAQADAAYAAAACAAIAAQADAAYAAAACAAEAAQADAAYAAAACAAAAAQADAAYAAAACAP//AQADAAYAAAACAP7/AQADAAYAAAABAP3/AQADAAYAAAA=")
 tile_set = ExtResource("2_jtw3q")

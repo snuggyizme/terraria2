@@ -20,3 +20,6 @@ baseFriction = 5.0
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=799073620]
 zoom = Vector2(3, 3)
 metadata/_edit_lock_ = true
+
+[node name="Sun" type="DirectionalLight2D" parent="." unique_id=21819411]
+shadow_enabled = true

@@ -2,7 +2,7 @@ class_name Chunk extends Node2D
 
 var chunkPosition := Vector2i.ZERO
 
-var blocks: Array = []
+var blocks: Dictionary = {}
 
 @onready var tileMap = $TileMapLayer
 
@@ -15,12 +15,20 @@ func _ready() -> void:
 func generate() -> void:
 	blocks.clear()
 	
-	for x in range(Global.DIMENSION.x):
-		blocks.append([])
-		blocks[x].resize(Global.DIMENSION.y)
-		
-		for y in range(Global.DIMENSION.y):
-			var globalPosition := chunkPosition * Global.DIMENSION + Vector2i(x, y)
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			if (
+				x < 0 or
+				y < 0 or
+				x >= Global.DIMENSION.x or
+				y >= Global.DIMENSION.y
+			):
+				blocks[coord] = &"_chunkConnect"
+				continue
+			
+			var globalPosition := chunkPosition * Global.DIMENSION + coord
 			
 			var height := Global.noise.get_noise_1d(globalPosition.x) # -1 to 1
 			
@@ -30,14 +38,14 @@ func generate() -> void:
 			)
 			
 			if globalPosition.y < surfaceY:
-				blocks[x][y] = &"_"
+				blocks[coord] = &"_"
 			elif globalPosition.y == surfaceY:
-				blocks[x][y] = &"grass"
+				blocks[coord] = &"grass"
 			elif globalPosition.y < surfaceY + Global.DIRT_BUFFER_SIZE:
-				blocks[x][y] = &"dirt"
+				blocks[coord] = &"dirt"
 			else:
 				# If no one cares about this poor block it's gonna be rock hard
-				blocks[x][y] = &"stone"
+				blocks[coord] = &"stone"
 				
 				# 2D noise for caves
 				var caveNoise: float = Global.noise.get_noise_2dv(
@@ -49,24 +57,24 @@ func generate() -> void:
 				)
 				# Check andesite first;
 				if noiseAndesite < Global.UNDERGROUND_NOISE_ANDESITE_THRESHOLD:
-					blocks[x][y] = &"andesite"
+					blocks[coord] = &"andesite"
 				# Caves override andesite because I like Cave Johnson;
 				if caveNoise < Global.UNDERGROUND_NOISE_CAVE_THRESHOLD:
-					blocks[x][y] = &"_"
+					blocks[coord] = &"_"
 
 func update() -> void:
 	var terrainCells: Array[Vector2i] = []
 	
-	tileMap.clear()
-	
-	for x in range(Global.DIMENSION.x):
-		for y in range(Global.DIMENSION.y):
-			var blockID = blocks[x][y]
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			var blockID = blocks[coord]
 			
 			if blockID == &"_":
 				continue
 			
-			terrainCells.append(Vector2i(x, y))
+			terrainCells.append(coord)
 	
 	tileMap.set_cells_terrain_connect(
 		terrainCells,
@@ -74,19 +82,19 @@ func update() -> void:
 		0,
 	)
 	
-	for x in range(Global.DIMENSION.x):
-		for y in range(Global.DIMENSION.y):
-			var coordFromCell = tileMap.get_cell_atlas_coords(Vector2i(x, y))
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y) 
+			var coordFromCell = tileMap.get_cell_atlas_coords(coord)
 			
 			if coordFromCell == Vector2i(-1, -1):
 				continue
 			
 			var block: Block = Global.blockDict.get(
-				blocks[x][y], Global.blockDict[&"test"]
+				blocks[coord], Global.blockDict[&"test"]
 			)
 			
-			tileMap.erase_cell(coordFromCell)
-			tileMap.set_cell(Vector2i(x, y), block.sourceAtlas, coordFromCell)
+			tileMap.set_cell(coord, block.sourceAtlas, coordFromCell)
 
 func _input(event: InputEvent) -> void:
 	if not event.is_action_pressed("x"):
