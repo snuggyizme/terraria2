@@ -4,7 +4,7 @@ var chunkPosition := Vector2i.ZERO
 
 var blocks: Dictionary = {}
 
-@onready var tileMap = $TileMapLayer
+@onready var tileMap: TileMapLayer = $TileMapLayer
 
 func _ready() -> void:
 	global_position = chunkPosition * Global.DIMENSION * Global.TILE_DIMENSION
