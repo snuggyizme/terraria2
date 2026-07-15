@@ -1,7 +1,7 @@
 class_name AbhijitNaskar extends Node
 
 # Chunk size! And other decently important constants
-const DIMENSION := Vector2i(128, 128)
+const DIMENSION := Vector2i(96, 96)
 const TILE_DIMENSION := Vector2i(8, 8)
 const RENDER_DIST := 1
 
@@ -15,7 +15,7 @@ const DIRT_BUFFER_SIZE := 4
 const UNDERGROUND_NOISE_CAVE_THRESHOLD = -0.1 ## < means open air
 const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.2 ## < means andesite
 
-var blockDict: Dictionary
+var blockDict: Dictionary[StringName, Block]
 
 var noise: FastNoiseLite
 
@@ -31,8 +31,8 @@ func _ready() -> void:
 	noise.fractal_lacunarity = 2.5
 	noise.frequency = 0.02
 
-func getBlocks(debug = false) -> Dictionary:
-	var export = {}
+func getBlocks(debug = false) -> Dictionary[StringName, Block]:
+	var export: Dictionary[StringName, Block] = {}
 	
 	var dir := DirAccess.open("res://blocks")
 	dir.list_dir_begin()

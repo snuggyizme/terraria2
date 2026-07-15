@@ -1,8 +1,10 @@
 class_name Chunk extends Node2D
 
+signal chunkReady
+
 var chunkPosition := Vector2i.ZERO
 
-var blocks: Dictionary = {}
+var blocks: Dictionary[Vector2i, StringName] = {}
 
 @onready var tileMap: TileMapLayer = $TileMapLayer
 
@@ -64,17 +66,20 @@ func generate() -> void:
 
 func update() -> void:
 	var terrainCells: Array[Vector2i] = []
+	terrainCells.resize(Global.DIMENSION.x + 2 * Global.DIMENSION.y +2)
+	var terrainCellsSize := 0
 	
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
 			var coord := Vector2i(x, y)
 			
-			var blockID = blocks[coord]
-			
-			if blockID == &"_":
+			if blocks[coord] == &"_":
 				continue
 			
 			terrainCells.append(coord)
+			terrainCellsSize += 1
+	
+	terrainCells.resize(terrainCellsSize)
 	
 	tileMap.set_cells_terrain_connect(
 		terrainCells,
@@ -82,24 +87,21 @@ func update() -> void:
 		0,
 	)
 	
+	var fallbackBlock: Block = Global.blockDict[&"test"]
+	var emptyCoord: Vector2i = Vector2i(-1, -1)
+
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
 			var coord := Vector2i(x, y) 
-			var coordFromCell = tileMap.get_cell_atlas_coords(coord)
+			var coordFromCell := tileMap.get_cell_atlas_coords(coord)
 			
-			if coordFromCell == Vector2i(-1, -1):
+			if coordFromCell == emptyCoord:
 				continue
 			
 			var block: Block = Global.blockDict.get(
-				blocks[coord], Global.blockDict[&"test"]
+				blocks[coord], fallbackBlock
 			)
 			
 			tileMap.set_cell(coord, block.sourceAtlas, coordFromCell)
-
-func _input(event: InputEvent) -> void:
-	if not event.is_action_pressed("x"):
-		return
-
-	Global.noise.seed += 1
-	generate()
-	update()
+	
+	chunkReady.emit()
