@@ -1,7 +1,7 @@
 class_name AbhijitNaskar extends Node
 
 # Chunk size! And other decently important constants
-const DIMENSION := Vector2i(96, 96)
+const DIMENSION := Vector2i(128, 64)
 const TILE_DIMENSION := Vector2i(8, 8)
 const RENDER_DIST := 1
 
