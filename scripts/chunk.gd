@@ -66,7 +66,7 @@ func generate() -> void:
 
 func update() -> void:
 	var terrainCells: Array[Vector2i] = []
-	terrainCells.resize(Global.DIMENSION.x + 2 * Global.DIMENSION.y +2)
+	terrainCells.resize((Global.DIMENSION.x + 2) * (Global.DIMENSION.y + 2))
 	var terrainCellsSize := 0
 	
 	var counter := 0
@@ -81,7 +81,7 @@ func update() -> void:
 			if blocks[coord] == &"_":
 				continue
 			
-			terrainCells.append(coord)
+			terrainCells[terrainCellsSize] = coord
 			terrainCellsSize += 1
 			
 			counter += 1
