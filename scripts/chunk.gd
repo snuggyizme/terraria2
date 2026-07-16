@@ -69,8 +69,13 @@ func update() -> void:
 	terrainCells.resize(Global.DIMENSION.x + 2 * Global.DIMENSION.y +2)
 	var terrainCellsSize := 0
 	
+	var counter := 0
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
+			if counter >= Global.TILES_PER_FRAME:
+				counter = 0
+				await get_tree().process_frame
+			
 			var coord := Vector2i(x, y)
 			
 			if blocks[coord] == &"_":
@@ -78,6 +83,8 @@ func update() -> void:
 			
 			terrainCells.append(coord)
 			terrainCellsSize += 1
+			
+			counter += 1
 	
 	terrainCells.resize(terrainCellsSize)
 	
