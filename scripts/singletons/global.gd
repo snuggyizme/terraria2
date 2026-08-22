@@ -1,10 +1,10 @@
 class_name AbhijitNaskar extends Node
 
 # Chunk size! And other decently important constants
-const DIMENSION := Vector2i(128, 64)
+const DIMENSION := Vector2i(96, 48)
 const TILE_DIMENSION := Vector2i(8, 8)
 const RENDER_DIST := 1
-const TILES_PER_FRAME := 400
+const TILES_PER_FRAME := 30
 
 # Things that you can change but don't really matter:
 const UNDERGROUND_NOISE_ANDESITE_OFFSET := Vector2i(50000, -50000)

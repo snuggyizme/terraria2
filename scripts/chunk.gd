@@ -1,16 +1,22 @@
 class_name Chunk extends Node2D
 
-signal chunkReady
+signal chunkReady(times: Dictionary)
 
 var chunkPosition := Vector2i.ZERO
-
 var blocks: Dictionary[Vector2i, StringName] = {}
+
+var startTime: float
+var genTime: float
+var terrainMaskTime: float
+var setCellsTerrainConnectTime: float
+var tileTime: float
 
 @onready var tileMap: TileMapLayer = $TileMapLayer
 
 func _ready() -> void:
 	global_position = chunkPosition * Global.DIMENSION * Global.TILE_DIMENSION
 	
+	startTime = Time.get_ticks_msec()
 	generate()
 	update()
 
@@ -30,9 +36,9 @@ func generate() -> void:
 				blocks[coord] = &"_chunkConnect"
 				continue
 			
-			var globalPosition := chunkPosition * Global.DIMENSION + coord
+			var globalPosition: Vector2i = chunkPosition * Global.DIMENSION + coord
 			
-			var height := Global.noise.get_noise_1d(globalPosition.x) # -1 to 1
+			var height: float = Global.noise.get_noise_1d(globalPosition.x) # -1 to 1
 			
 			var surfaceY := int(
 				Global.SURFACE_HEIGHT + 
@@ -63,6 +69,8 @@ func generate() -> void:
 				# Caves override andesite because I like Cave Johnson;
 				if caveNoise < Global.UNDERGROUND_NOISE_CAVE_THRESHOLD:
 					blocks[coord] = &"_"
+	
+	genTime = Time.get_ticks_msec() - startTime
 
 func update() -> void:
 	var terrainCells: Array[Vector2i] = []
@@ -88,11 +96,15 @@ func update() -> void:
 	
 	terrainCells.resize(terrainCellsSize)
 	
+	terrainMaskTime = Time.get_ticks_msec() - startTime - genTime
+	
 	tileMap.set_cells_terrain_connect(
 		terrainCells,
 		0,
 		0,
 	)
+	
+	setCellsTerrainConnectTime = Time.get_ticks_msec() - startTime - genTime - terrainMaskTime
 	
 	var fallbackBlock: Block = Global.blockDict[&"test"]
 	var emptyCoord: Vector2i = Vector2i(-1, -1)
@@ -111,4 +123,11 @@ func update() -> void:
 			
 			tileMap.set_cell(coord, block.sourceAtlas, coordFromCell)
 	
-	chunkReady.emit()
+	tileTime = Time.get_ticks_msec() - startTime - genTime - terrainMaskTime - setCellsTerrainConnectTime
+	
+	chunkReady.emit({
+		&"genTime": genTime,
+		&"terrainMaskTime": terrainMaskTime,
+		&"setCellsTerrainConnectTime": setCellsTerrainConnectTime,
+		&"tileTime": tileTime,
+	})
