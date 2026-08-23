@@ -2,6 +2,7 @@ class_name F3Menu extends CanvasLayer
 
 @export var chunkController: ChunkController
 @export var leftLabel: Label
+@export var ticks: Array[Sprite2D]
 
 var chunkTimes: Array[Dictionary] = []
 var avgChunkTimes: Dictionary
@@ -9,6 +10,11 @@ var avgChunkTimes: Dictionary
 func _ready() -> void:
 	chunkController.chunkCreated.connect(_onChunkCreated)
 	visible = false
+	
+	SignalInterchange.chunkFinishedGen.connect(_chunkFinishedGen)
+	SignalInterchange.chunkFinishedTerrainMask.connect(_chunkFinishedTerrainMask)
+	SignalInterchange.chunkFinishedSetCellsTerrainConnect.connect(_chunkFinishedSetCellsTerrainConnect)
+	SignalInterchange.chunkFinishedTile.connect(_chunkFinishedTile)
 
 func _process(_delta: float) -> void:
 	if avgChunkTimes == null or not avgChunkTimes.has(&"genTime"):
@@ -41,6 +47,30 @@ func _input(event: InputEvent) -> void:
 func _onChunkCreated(times: Dictionary) -> void:
 	chunkTimes.append(times)
 	avgChunkTimes = avgChunks(chunkTimes)
+
+func _chunkFinishedGen() -> void:
+	showTick(0)
+
+func _chunkFinishedTerrainMask() -> void:
+	showTick(1)
+
+func _chunkFinishedSetCellsTerrainConnect() -> void:
+	showTick(2)
+
+func _chunkFinishedTile() -> void:
+	showTick(3)
+
+func showTick(i: int) -> void:
+	var tick: Sprite2D = ticks[i]
+	tick.visible = true
+	tick.modulate.a = 1.0
+	var tween = create_tween()
+	tween.tween_property(
+		tick, "modulate:a", 0.0, 0.7,
+	)
+	tween.tween_callback(
+		tick.hide
+	)
 
 func avgChunks(times: Array[Dictionary]) -> Dictionary:
 	var avg: Dictionary

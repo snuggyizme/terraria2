@@ -4,6 +4,7 @@ class_name AbhijitNaskar extends Node
 const DIMENSION := Vector2i(96, 48)
 const TILE_DIMENSION := Vector2i(8, 8)
 const RENDER_DIST := 1
+const LIMIT_TILES_PER_FRAME := true
 const TILES_PER_FRAME := 30
 
 # Things that you can change but don't really matter:

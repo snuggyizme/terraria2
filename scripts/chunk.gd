@@ -1,5 +1,10 @@
 class_name Chunk extends Node2D
 
+signal finishedGen
+signal finishedTerrainMask
+signal finishedSetCellsTerrainConnect
+signal finishedTile
+
 signal chunkReady(times: Dictionary)
 
 var chunkPosition := Vector2i.ZERO
@@ -14,6 +19,11 @@ var tileTime: float
 @onready var tileMap: TileMapLayer = $TileMapLayer
 
 func _ready() -> void:
+	finishedGen.connect(SignalInterchange._chunkFinishedGen)
+	finishedTerrainMask.connect(SignalInterchange._chunkFinishedTerrainMask)
+	finishedSetCellsTerrainConnect.connect(SignalInterchange._chunkFinishedSetCellsTerrainConnect)
+	finishedTile.connect(SignalInterchange._chunkFinishedTile)
+	
 	global_position = chunkPosition * Global.DIMENSION * Global.TILE_DIMENSION
 	
 	startTime = Time.get_ticks_msec()
@@ -71,6 +81,7 @@ func generate() -> void:
 					blocks[coord] = &"_"
 	
 	genTime = Time.get_ticks_msec() - startTime
+	finishedGen.emit()
 
 func update() -> void:
 	var terrainCells: Array[Vector2i] = []
@@ -80,7 +91,7 @@ func update() -> void:
 	var counter := 0
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
-			if counter >= Global.TILES_PER_FRAME:
+			if counter >= Global.TILES_PER_FRAME and Global.LIMIT_TILES_PER_FRAME:
 				counter = 0
 				await get_tree().process_frame
 			
@@ -97,6 +108,7 @@ func update() -> void:
 	terrainCells.resize(terrainCellsSize)
 	
 	terrainMaskTime = Time.get_ticks_msec() - startTime - genTime
+	finishedTerrainMask.emit()
 	
 	tileMap.set_cells_terrain_connect(
 		terrainCells,
@@ -105,6 +117,7 @@ func update() -> void:
 	)
 	
 	setCellsTerrainConnectTime = Time.get_ticks_msec() - startTime - genTime - terrainMaskTime
+	finishedSetCellsTerrainConnect.emit()
 	
 	var fallbackBlock: Block = Global.blockDict[&"test"]
 	var emptyCoord: Vector2i = Vector2i(-1, -1)
@@ -124,6 +137,7 @@ func update() -> void:
 			tileMap.set_cell(coord, block.sourceAtlas, coordFromCell)
 	
 	tileTime = Time.get_ticks_msec() - startTime - genTime - terrainMaskTime - setCellsTerrainConnectTime
+	finishedTile.emit()
 	
 	chunkReady.emit({
 		&"genTime": genTime,

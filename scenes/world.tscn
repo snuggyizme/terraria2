@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b2sm6gwvyn4rk" path="res://scenes/playerCharacter.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://c0m83nl5c7xn8" path="res://scripts/chunkController.gd" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://b4gm5ih40rkal" path="res://scripts/f3.gd" id="3_4wyf3"]
+[ext_resource type="Texture2D" uid="uid://d16n48bt01u6d" path="res://assets/_debug/check.png" id="4_k0juu"]
 
 [node name="World" type="Node2D" unique_id=2019267694]
 
@@ -20,11 +21,41 @@ metadata/_edit_lock_ = true
 [node name="Sun" type="DirectionalLight2D" parent="." unique_id=21819411]
 shadow_enabled = true
 
-[node name="F3" type="CanvasLayer" parent="." unique_id=354293283 node_paths=PackedStringArray("chunkController", "leftLabel")]
+[node name="F3" type="CanvasLayer" parent="." unique_id=354293283 node_paths=PackedStringArray("chunkController", "leftLabel", "ticks")]
 script = ExtResource("3_4wyf3")
 chunkController = NodePath("../ChunkController")
 leftLabel = NodePath("Label")
+ticks = [NodePath("TickGen"), NodePath("TickTerrainMask"), NodePath("TickSetCellsTerrainConnect"), NodePath("TickTile")]
 
 [node name="Label" type="Label" parent="F3" unique_id=1527409340]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "FPS:
+Process time:
+Physics time:
+Avg chunk times:
+   1. Generate: 
+   2. Terrain Mask: 
+   3. Set Cells Terrain Connect: 
+   4. Tile: "
+metadata/_edit_lock_ = true
+
+[node name="TickGen" type="Sprite2D" parent="F3" unique_id=1723812414]
+position = Vector2(7, 117)
+scale = Vector2(1.9642856, 1.9642859)
+texture = ExtResource("4_k0juu")
+
+[node name="TickTerrainMask" type="Sprite2D" parent="F3" unique_id=1769354395]
+position = Vector2(7.0000005, 141)
+scale = Vector2(1.9642856, 1.9642859)
+texture = ExtResource("4_k0juu")
+
+[node name="TickSetCellsTerrainConnect" type="Sprite2D" parent="F3" unique_id=586011475]
+position = Vector2(7.0000005, 168.00002)
+scale = Vector2(1.9642856, 1.9642859)
+texture = ExtResource("4_k0juu")
+
+[node name="TickTile" type="Sprite2D" parent="F3" unique_id=1970804004]
+position = Vector2(7.0000005, 195)
+scale = Vector2(1.9642856, 1.9642859)
+texture = ExtResource("4_k0juu")

@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://c2pkxi2cpjfxl"
+SignalInterchange="*uid://1bdjul0dvtat"
 
 [display]
 
