@@ -7,7 +7,7 @@ const RENDER_DIST := 1
 const TILES_PER_FRAME := 30
 
 # Things that you can change but don't really matter:
-const UNDERGROUND_NOISE_ANDESITE_OFFSET := Vector2i(50000, -50000)
+const UNDERGROUND_NOISE_ANDESITE_OFFSET := Vector2i(50000, -50001)
 
 # World gen params
 const SURFACE_HEIGHT := 32
