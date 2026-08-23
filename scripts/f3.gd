@@ -6,6 +6,7 @@ class_name F3Menu extends CanvasLayer
 
 var chunkTimes: Array[Dictionary] = []
 var avgChunkTimes: Dictionary
+var latestFrameCount
 
 func _ready() -> void:
 	chunkController.chunkCreated.connect(_onChunkCreated)
@@ -32,10 +33,9 @@ func _process(_delta: float) -> void:
 	# Avg Chunk Times
 	text += "Avg chunk times:" + "\n"
 	text += "   1. Generate: " + avgChunkTimes[&"genTime"] + "\n"
-	text += "   2. Terrain Mask: " + avgChunkTimes[&"terrainMaskTime"] + "\n"
+	text += "   2. Terrain Mask: " + avgChunkTimes[&"terrainMaskTime"] + " (Latest frame count: " + latestFrameCount + ")\n"
 	text += "   3. Set Cells Terrain Connect: " + avgChunkTimes.setCellsTerrainConnectTime + "\n" # This works, woah.
 	text += "   4. Tile: " + avgChunkTimes.tileTime + "\n"
-	
 	
 	
 	leftLabel.text = text
@@ -51,7 +51,8 @@ func _onChunkCreated(times: Dictionary) -> void:
 func _chunkFinishedGen() -> void:
 	showTick(0)
 
-func _chunkFinishedTerrainMask() -> void:
+func _chunkFinishedTerrainMask(frameCount) -> void:
+	latestFrameCount = str(frameCount)
 	showTick(1)
 
 func _chunkFinishedSetCellsTerrainConnect() -> void:

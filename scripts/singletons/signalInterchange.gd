@@ -1,15 +1,15 @@
 class_name TrainStation extends Node
 
 signal chunkFinishedGen
-signal chunkFinishedTerrainMask
+signal chunkFinishedTerrainMask(frameCount: int)
 signal chunkFinishedSetCellsTerrainConnect
 signal chunkFinishedTile
 
 func _chunkFinishedGen() -> void:
 	chunkFinishedGen.emit()
 
-func _chunkFinishedTerrainMask() -> void:
-	chunkFinishedTerrainMask.emit()
+func _chunkFinishedTerrainMask(frameCount: int) -> void:
+	chunkFinishedTerrainMask.emit(frameCount)
 
 func _chunkFinishedSetCellsTerrainConnect() -> void:
 	chunkFinishedSetCellsTerrainConnect.emit()
