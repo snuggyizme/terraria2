@@ -7,6 +7,7 @@ class_name F3Menu extends CanvasLayer
 var chunkTimes: Array[Dictionary] = []
 var avgChunkTimes: Dictionary
 var latestFrameCount
+var tweens: Array[Tween] = [null, null, null, null]
 
 func _ready() -> void:
 	chunkController.chunkCreated.connect(_onChunkCreated)
@@ -31,9 +32,11 @@ func _process(_delta: float) -> void:
 	text += "Physics time: " + str(Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0) + "\n"
 	
 	# Avg Chunk Times
+	var frameCounter: String = " (Latest frame count: " + latestFrameCount + ")\n" if Global.DO_EVIL_TILES_PER_FRAME else "\n"
+	
 	text += "Avg chunk times:" + "\n"
 	text += "   1. Generate: " + avgChunkTimes[&"genTime"] + "\n"
-	text += "   2. Terrain Mask: " + avgChunkTimes[&"terrainMaskTime"] + " (Latest frame count: " + latestFrameCount + ")\n"
+	text += "   2. Terrain Mask: " + avgChunkTimes[&"terrainMaskTime"] + frameCounter
 	text += "   3. Set Cells Terrain Connect: " + avgChunkTimes.setCellsTerrainConnectTime + "\n" # This works, woah.
 	text += "   4. Tile: " + avgChunkTimes.tileTime + "\n"
 	
@@ -65,11 +68,15 @@ func showTick(i: int) -> void:
 	var tick: Sprite2D = ticks[i]
 	tick.visible = true
 	tick.modulate.a = 1.0
-	var tween = create_tween()
-	tween.tween_property(
+	
+	if tweens[i] != null:
+		tweens[i].kill()
+	
+	tweens[i] = create_tween()
+	tweens[i].tween_property(
 		tick, "modulate:a", 0.0, 0.7,
 	)
-	tween.tween_callback(
+	tweens[i].tween_callback(
 		tick.hide
 	)
 

@@ -8,12 +8,13 @@ size = Vector2(6, 14)
 
 [node name="PlayerCharacter" type="CharacterBody2D" unique_id=1026959804]
 script = ExtResource("1_2jmuu")
-baseSpeed = 300.0
+baseSpeed = 160.0
 baseJump = 300.0
 baseGravity = 600.0
 baseAccel = 160.0
 baseFriction = 5.0
 startThreshold = 8.0
+stepHeight = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=492464172]
 texture = ExtResource("2_qn7b7")

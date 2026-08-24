@@ -6,6 +6,7 @@ class_name PlayerCharacter extends CharacterBody2D
 @export var baseAccel: float
 @export var baseFriction: float
 @export var startThreshold: float
+@export var stepHeight: float
 
 var startTimer: float = 0.0
 
@@ -30,4 +31,5 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, baseFriction)
 	
+	# ~move and slide~
 	move_and_slide()

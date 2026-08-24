@@ -114,16 +114,24 @@ func update() -> void:
 			
 			counter += 1
 	
-	terrainCells.resize(terrainCellsSize)
+	terrainCells.resize(terrainCellsSize) # I don't know if I need this or not # FUCK I DO I DO I DO
+	#                                                                                 ^^^^^^^^^^^^^^
+	#                                                                                  Me when wife 
 	
 	terrainMaskTime = Time.get_ticks_msec() - startTime - genTime- awaitTime  #
 	finishedTerrainMask.emit(frameCount) # 
+	
+	
+	
 	
 	tileMap.set_cells_terrain_connect(
 		terrainCells,
 		0,
 		0,
 	)
+	
+	
+	
 	
 	setCellsTerrainConnectTime = Time.get_ticks_msec() - startTime - genTime - awaitTime - terrainMaskTime #
 	finishedSetCellsTerrainConnect.emit() # 
