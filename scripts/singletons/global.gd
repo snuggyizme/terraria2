@@ -13,10 +13,11 @@ const UNDERGROUND_NOISE_ANDESITE_OFFSET := Vector2i(50000, -50001)
 # World gen params
 const SURFACE_HEIGHT := 32
 const HILL_HEIGHT := 20
-const DIRT_BUFFER_SIZE := 4
+const DIRT_BUFFER_SIZE := 11
 const UNDERGROUND_NOISE_CAVE_THRESHOLD = -0.1 ## < means open air
 const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.2 ## < means andesite
-const UNDERGROUND_NOISE_GRANITE_THRESHOLD = 0.7
+const UNDERGROUND_NOISE_GRANITE_THRESHOLD = 0.4 ## < means granite
+const UNDERGROUND_NOISE_MICA_THRESHOLD = 0.7 ## > means mica
 
 @export var genBiomeNoise: FastNoiseLite
 @export var stoneTypeNoise: FastNoiseLite # Granite only

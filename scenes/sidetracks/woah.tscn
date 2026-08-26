@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ce62cmcm1ax0d"]
+
+[sub_resource type="Gradient" id="Gradient_lobd4"]
+offsets = PackedFloat32Array(0.1849315, 0.47945204, 0.6849315, 1)
+colors = PackedColorArray(0.09589041, 0.09589041, 0.09589041, 1, 0.56, 0.3192, 0.32722664, 1, 0.64705884, 0.6431373, 0.45882353, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_57qmd"]
+noise_type = 2
+domain_warp_enabled = true
+domain_warp_amplitude = 25.91
+domain_warp_fractal_lacunarity = -2.055
+domain_warp_fractal_gain = 0.77
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yf5fn"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_57qmd")
+color_ramp = SubResource("Gradient_lobd4")
+invert = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lobd4"]
+noise_type = 2
+domain_warp_enabled = true
+domain_warp_amplitude = 25.91
+domain_warp_fractal_lacunarity = -2.055
+domain_warp_fractal_gain = 0.77
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vyfdl"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_lobd4")
+invert = true
+as_normal_map = true
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g4v7s"]
+diffuse_texture = SubResource("NoiseTexture2D_yf5fn")
+normal_texture = SubResource("NoiseTexture2D_vyfdl")
+
+[sub_resource type="Gradient" id="Gradient_okxn1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_okxn1")
+fill = 1
+fill_from = Vector2(0.4478261, 0.45652175)
+fill_to = Vector2(1, 1)
+
+[node name="Sprite2D" type="Sprite2D" unique_id=1035598615]
+texture = SubResource("CanvasTexture_g4v7s")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1720421711]
+position = Vector2(478, -511)
+energy = 1.75
+texture = SubResource("GradientTexture2D_g4v7s")
+texture_scale = 50.0
+height = 19.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=739602280]

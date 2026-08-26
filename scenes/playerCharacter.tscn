@@ -15,7 +15,7 @@ baseAccel = 160.0
 baseFriction = 5.0
 startThreshold = 8.0
 stepHeight = 10.0
-noclipSpeed = 300.0
+noclipSpeed = 700.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=492464172]
 texture = ExtResource("2_qn7b7")

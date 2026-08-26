@@ -9,6 +9,8 @@ const CHUNK_SCENE: PackedScene = preload("res://scenes/chunk.tscn")
 var loadedChunks: Dictionary = {}
 var playerChunk: Vector2i
 var chunkSizePixels: Vector2i = Global.DIMENSION * Global.TILE_DIMENSION
+var updateRunning: bool = false
+var updatePending: bool = false
 
 func _physics_process(_delta: float) -> void:
 	var currentPlayerChunk = Vector2i(
@@ -19,22 +21,32 @@ func _physics_process(_delta: float) -> void:
 	if currentPlayerChunk != playerChunk:
 		print("Moved to new chunk")
 		playerChunk = currentPlayerChunk
-		update()
+		requestUpdate()
+
+func requestUpdate() -> void:
+	if updateRunning:
+		updatePending = true
+		return
+	
+	update()
 
 func update() -> void:
+	updateRunning = true
+	updatePending = false
+	
 	var wantedChunks: Array = []
 	for x in range(-Global.RENDER_DIST, Global.RENDER_DIST + 1):
 		for y in range(-Global.RENDER_DIST, Global.RENDER_DIST + 1):
 			wantedChunks.append(playerChunk + Vector2i(x, y))
 	
+	# Find and load all chunks we want but dont have
 	var queue: Array = []
-	for i in wantedChunks:
-		if i in loadedChunks:
+	for chunkPos in wantedChunks:
+		if chunkPos in loadedChunks:
 			continue
 		
-		queue.append(i)
+		queue.append(chunkPos)
 		
-	
 	for i in queue:
 		var chunk: Chunk = CHUNK_SCENE.instantiate()
 		chunk.chunkPosition = i
@@ -42,3 +54,14 @@ func update() -> void:
 		loadedChunks[i] = chunk
 		
 		chunkCreated.emit(await chunk.chunkReady)
+	
+	# Find and unload all chunks we dont want but have
+	for i in loadedChunks.keys():
+		if i not in wantedChunks:
+			loadedChunks[i].queue_free()
+			loadedChunks.erase(i)
+	
+	updateRunning = false
+	
+	if updatePending:
+		update()

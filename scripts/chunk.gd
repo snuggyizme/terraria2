@@ -30,7 +30,7 @@ func _ready() -> void:
 	generate()
 	update()
 
-func generateBasic() -> void:
+func generateBasic() -> void: # Banished. :(
 	blocks.clear()
 	
 	for x in range(-1, Global.DIMENSION.x + 1):
@@ -112,7 +112,10 @@ func generate() -> void:
 				)
 			)
 			
-			var graniteNoise: float = Global.stoneTypeNoise.get_noise_2dv(coord)
+			var graniteNoise: float = remap(
+				Global.stoneTypeNoise.get_noise_2dv(globalPosition), -1, 1,
+				0, 1,
+			)
 			
 			var surfaceY := int(
 				Global.SURFACE_HEIGHT + 
@@ -130,12 +133,15 @@ func generate() -> void:
 				blocks[coord] = &"stone"
 				
 				# First we do massive things
-				if graniteNoise > Global.UNDERGROUND_NOISE_GRANITE_THRESHOLD:
-					blocks[coord] = &"grass" # No granite yet!
-				# If not, lil andesite next;
+				if graniteNoise < Global.UNDERGROUND_NOISE_GRANITE_THRESHOLD:
+					blocks[coord] = &"granite"
+				# or tiny things
+				elif graniteNoise > Global.UNDERGROUND_NOISE_MICA_THRESHOLD:
+					blocks[coord] = &"mica"
+				# lil andesite next
 				elif noiseAndesite < Global.UNDERGROUND_NOISE_ANDESITE_THRESHOLD:
 					blocks[coord] = &"andesite"
-				# Caves override andesite because I like Cave Johnson;
+				# Caves override andesite because I like Cave Johnson
 				if caveNoise < Global.UNDERGROUND_NOISE_CAVE_THRESHOLD:
 					blocks[coord] = &"_"
 	

@@ -16,9 +16,10 @@ domain_warp_frequency = -0.015
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tyy3d"]
 noise_type = 4
 seed = 11
-frequency = 0.1023
 domain_warp_enabled = true
 domain_warp_type = 2
+domain_warp_frequency = -0.04
+domain_warp_fractal_gain = 0.525
 
 [node name="Global" type="Node" unique_id=583500826]
 script = ExtResource("1_ucjvr")
