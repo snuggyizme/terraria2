@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="NoiseReplacerGenerationPass" format=3 uid="uid://cg5lh2gmy2ne6"]
+
+[ext_resource type="Script" uid="uid://bpqpm1chm5m8a" path="res://scripts/resourceDefinitions/generationPasses/noiseReplacerGenerationPass.gd" id="1_k2juf"]
+[ext_resource type="Script" uid="uid://c7sfsvvhgjw2q" path="res://scripts/resourceDefinitions/threshold.gd" id="2_s1p6t"]
+
+[sub_resource type="Resource" id="Resource_k2juf"]
+script = ExtResource("2_s1p6t")
+type = 1
+threshold = 0.21999999999999997
+metadata/_custom_type_script = "uid://c7sfsvvhgjw2q"
+
+[resource]
+script = ExtResource("1_k2juf")
+targets = Array[StringName]([&"stone"])
+block = &"mica"
+noiseIdentifier = &"stoneTypeNoise"
+threshold = SubResource("Resource_k2juf")
+metadata/_custom_type_script = "uid://bpqpm1chm5m8a"

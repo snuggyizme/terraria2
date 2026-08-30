@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SurfaceGenerationPass" format=3 uid="uid://cbhsqlx51pg0n"]
+
+[ext_resource type="Script" uid="uid://baxbj4prngww6" path="res://scripts/resourceDefinitions/generationPasses/surfaceGenerationPass.gd" id="1_l51bx"]
+
+[resource]
+script = ExtResource("1_l51bx")
+air = &"_"
+grass = &"grass"
+dirt = &"dirt"
+stone = &"stone"
+dirtWaviness = 20.0
+grassNoiseIdentifier = &"smoothNoise"
+dirtNoiseIdentifier = &"noise"
+metadata/_custom_type_script = "uid://baxbj4prngww6"

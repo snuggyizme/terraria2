@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="NoiseReplacerGenerationPass" format=3 uid="uid://dbno65eetabrx"]
+
+[ext_resource type="Script" uid="uid://bpqpm1chm5m8a" path="res://scripts/resourceDefinitions/generationPasses/noiseReplacerGenerationPass.gd" id="1_xmrm5"]
+[ext_resource type="Script" uid="uid://c7sfsvvhgjw2q" path="res://scripts/resourceDefinitions/threshold.gd" id="2_83c38"]
+
+[sub_resource type="Resource" id="Resource_mxt1a"]
+script = ExtResource("2_83c38")
+type = 1
+threshold = 0.09000000000000008
+metadata/_custom_type_script = "uid://c7sfsvvhgjw2q"
+
+[resource]
+script = ExtResource("1_xmrm5")
+targets = Array[StringName]([&"stone"])
+block = &"dirt"
+noiseIdentifier = &"noise"
+threshold = SubResource("Resource_mxt1a")
+offset = 3444
+metadata/_custom_type_script = "uid://bpqpm1chm5m8a"

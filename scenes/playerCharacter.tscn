@@ -13,7 +13,6 @@ baseJump = 300.0
 baseGravity = 600.0
 baseAccel = 160.0
 baseFriction = 5.0
-startThreshold = 8.0
 stepHeight = 10.0
 noclipSpeed = 700.0
 
