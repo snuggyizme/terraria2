@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SignalInterchange="*uid://1bdjul0dvtat"
 Global="*uid://coehlp4d3q6v"
+Generator="*uid://c8ghm7a6yvjuk"
 
 [display]
 
@@ -26,7 +27,6 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="viewport"
-window/vsync/vsync_mode=0
 
 [file_customization]
 

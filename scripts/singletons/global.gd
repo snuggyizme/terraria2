@@ -3,6 +3,7 @@ class_name AbhijitNaskar extends Node
 # Chunk size! And other decently important constants
 const DIMENSION := Vector2i(16, 16)
 const TILE_DIMENSION := Vector2i(8, 8)
+const WORLD_DIMENSION := Vector2i(5, 5)
 const RENDER_DIST := 3
 const DO_EVIL_TILES_PER_FRAME := false
 const TILES_PER_FRAME := 150
@@ -19,26 +20,27 @@ const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.2 ## < means andesite
 const UNDERGROUND_NOISE_GRANITE_THRESHOLD = 0.4 ## < means granite
 const UNDERGROUND_NOISE_MICA_THRESHOLD = 0.7 ## > means mica
 
+@export var noise: FastNoiseLite
 @export var genBiomeNoise: FastNoiseLite
-@export var stoneTypeNoise: FastNoiseLite # Granite only
+@export var stoneTypeNoise: FastNoiseLite
 
 var blockDict: Dictionary[StringName, Block]
 var biomeArray: Array[Biome]
-
-var noise: FastNoiseLite
+var worldGenerationContext: WorldGenerationContext
 
 func _ready() -> void:
+	worldGenerationContext = WorldGenerationContext.new(
+		Global.WORLD_DIMENSION
+	)
+	
 	blockDict = getBlocks()
 	biomeArray = getBiomes()
 	
+	# Todo: base this off of worldGenerationContext.mySeed instead of unrelated
 	randomize()
-	noise = FastNoiseLite.new()
 	noise.seed = randi()
-	noise.noise_type = noise.NoiseType.TYPE_VALUE_CUBIC
-	noise.fractal_octaves = 4
-	noise.fractal_gain = 0.6
-	noise.fractal_lacunarity = 2.5
-	noise.frequency = 0.02
+	genBiomeNoise.seed = randi()
+	stoneTypeNoise.seed = randi()
 
 func getBlocks(debug := false) -> Dictionary[StringName, Block]:
 	var export: Dictionary[StringName, Block] = {}

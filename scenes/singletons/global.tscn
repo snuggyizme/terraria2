@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c2pkxi2cpjfxl" path="res://scripts/singletons/global.gd" id="1_ucjvr"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k0juu"]
+noise_type = 4
+frequency = 0.02
+fractal_octaves = 6
+fractal_lacunarity = 2.5
+fractal_gain = 0.6
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ucjvr"]
 noise_type = 5
 seed = 11
@@ -23,6 +30,7 @@ domain_warp_fractal_gain = 0.525
 
 [node name="Global" type="Node" unique_id=583500826]
 script = ExtResource("1_ucjvr")
+noise = SubResource("FastNoiseLite_k0juu")
 genBiomeNoise = SubResource("FastNoiseLite_ucjvr")
 stoneTypeNoise = SubResource("FastNoiseLite_tyy3d")
 metadata/_custom_type_script = "uid://c2pkxi2cpjfxl"

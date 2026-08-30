@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8ghm7a6yvjuk"]
+
+[ext_resource type="Script" uid="uid://h3don8lpopio" path="res://scripts/singletons/generator.gd" id="1_w83et"]
+
+[node name="Generator" type="Node" unique_id=1061561749]
+script = ExtResource("1_w83et")

@@ -36,6 +36,7 @@ leftLabel = NodePath("Label")
 ticks = [NodePath("TickGen"), NodePath("TickTerrainMask"), NodePath("TickSetCellsTerrainConnect"), NodePath("TickTile")]
 
 [node name="Label" type="Label" parent="F3" unique_id=1527409340]
+custom_minimum_size = Vector2(300, 0)
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_k0juu")

@@ -30,131 +30,30 @@ func _ready() -> void:
 	generate()
 	update()
 
-func generateBasic() -> void: # Banished. :(
-	blocks.clear()
-	
-	for x in range(-1, Global.DIMENSION.x + 1):
-		for y in range(-1, Global.DIMENSION.y + 1):
-			var coord := Vector2i(x, y)
-			
-			var globalPosition: Vector2i = chunkPosition * Global.DIMENSION + coord
-			
-			var height: float = Global.noise.get_noise_1d(globalPosition.x) # -1 to 1
-			
-			var surfaceY := int(
-				Global.SURFACE_HEIGHT + 
-				Global.HILL_HEIGHT * height
-			)
-			
-			if globalPosition.y < surfaceY:
-				blocks[coord] = &"_"
-			elif globalPosition.y == surfaceY:
-				blocks[coord] = &"grass"
-			elif globalPosition.y < surfaceY + Global.DIRT_BUFFER_SIZE:
-				blocks[coord] = &"dirt"
-			else:
-				# If no one cares about this poor block it's gonna be rock hard
-				blocks[coord] = &"stone"
-				
-				# 2D noise for caves
-				var caveNoise: float = Global.noise.get_noise_2dv(
-					globalPosition
-				)
-				# 2D noise for andesite
-				var noiseAndesite: float = Global.noise.get_noise_2dv(
-					globalPosition + Global.UNDERGROUND_NOISE_ANDESITE_OFFSET
-				)
-				# Check andesite first;
-				if noiseAndesite < Global.UNDERGROUND_NOISE_ANDESITE_THRESHOLD:
-					blocks[coord] = &"andesite"
-				# Caves override andesite because I like Cave Johnson;
-				if caveNoise < Global.UNDERGROUND_NOISE_CAVE_THRESHOLD:
-					blocks[coord] = &"_"
-			
-			if (
-				blocks[coord] != &"_" and
-				(
-					x < 0 or
-					y < 0 or
-					x >= Global.DIMENSION.x or
-					y >= Global.DIMENSION.y
-				)
-			):
-				blocks[coord] = &"_chunkConnect"
-	
-	genTime = Time.get_ticks_msec() - startTime
-	finishedGen.emit()
-
 func generate() -> void:
 	blocks.clear()
 	
+	var context := GenerationContext.new(
+		chunkPosition, blocks, Global.worldGenerationContext
+	)
+	
+	Generator.generate(context)
+	
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
 			var coord := Vector2i(x, y)
 			
-			var globalPosition: Vector2i = chunkPosition * Global.DIMENSION + coord
-			
-			var height: float = Global.noise.get_noise_1d(globalPosition.x) # -1 to 1
-			
-			var genBiomeValue: float = Global.genBiomeNoise.get_noise_2dv(globalPosition)
-			var genBiome: StringName
-			
-			var caveNoise: float = Global.noise.get_noise_2dv(
-				globalPosition
-			)
-			var noiseAndesite: float = Global.noise.get_noise_2dv(
-				globalPosition + Global.UNDERGROUND_NOISE_ANDESITE_OFFSET
-			)
-			
-			var randAddValue: float = int(
-				remap(
-					Global.noise.get_noise_1d(globalPosition.x + 999999), -1, 0.5, -2, 8
-				)
-			)
-			
-			var graniteNoise: float = remap(
-				Global.stoneTypeNoise.get_noise_2dv(globalPosition), -1, 1,
-				0, 1,
-			)
-			
-			var surfaceY := int(
-				Global.SURFACE_HEIGHT + 
-				Global.HILL_HEIGHT * height
-			)
-			
-			if globalPosition.y < surfaceY:
-				blocks[coord] = &"_"
-			elif globalPosition.y == surfaceY:
-				blocks[coord] = &"grass"
-			elif globalPosition.y < surfaceY + Global.DIRT_BUFFER_SIZE + randAddValue:
-				blocks[coord] = &"dirt"
-			else:
-				# If no one cares about this poor block it's gonna be rock hard
-				blocks[coord] = &"stone"
-				
-				# First we do massive things
-				if graniteNoise < Global.UNDERGROUND_NOISE_GRANITE_THRESHOLD:
-					blocks[coord] = &"granite"
-				# or tiny things
-				elif graniteNoise > Global.UNDERGROUND_NOISE_MICA_THRESHOLD:
-					blocks[coord] = &"mica"
-				# lil andesite next
-				elif noiseAndesite < Global.UNDERGROUND_NOISE_ANDESITE_THRESHOLD:
-					blocks[coord] = &"andesite"
-				# Caves override andesite because I like Cave Johnson
-				if caveNoise < Global.UNDERGROUND_NOISE_CAVE_THRESHOLD:
-					blocks[coord] = &"_"
-	
-			if (
-				blocks[coord] != &"_" and
-				(
-					x < 0 or
-					y < 0 or
-					x >= Global.DIMENSION.x or
-					y >= Global.DIMENSION.y
-				)
-			):
-				blocks[coord] = &"_chunkConnect"
+			if blocks.has(coord) != null:
+				if (
+					blocks[coord] != &"_" and
+					(
+						x < 0 or
+						y < 0 or
+						x >= Global.DIMENSION.x or
+						y >= Global.DIMENSION.y
+					)
+				):
+					blocks[coord] = &"_chunkConnect"
 	
 	genTime = Time.get_ticks_msec() - startTime
 	finishedGen.emit()
