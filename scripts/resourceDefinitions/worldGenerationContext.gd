@@ -11,4 +11,5 @@ func _init(
 	mySeed = randi()
 
 func generateStructures() -> void:
-	pass
+	for i in range(Global.structureCountShrine):
+		var structure: 
