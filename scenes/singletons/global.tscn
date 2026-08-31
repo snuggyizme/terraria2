@@ -51,4 +51,5 @@ genBiomeNoise = SubResource("FastNoiseLite_ucjvr")
 stoneTypeNoise = SubResource("FastNoiseLite_tyy3d")
 caveNoise = SubResource("FastNoiseLite_os2yr")
 smallishNoise = SubResource("FastNoiseLite_brfv6")
+structureCountShrine = 472
 metadata/_custom_type_script = "uid://c2pkxi2cpjfxl"

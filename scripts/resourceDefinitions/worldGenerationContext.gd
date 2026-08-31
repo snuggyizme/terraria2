@@ -11,5 +11,17 @@ func _init(
 	mySeed = randi()
 
 func generateStructures() -> void:
+	var rect := Rect2i(
+		-Global.WORLD_DIMENSION / 2.0,
+		+Global.WORLD_DIMENSION,
+	)
+	
 	for i in range(Global.structureCountShrine):
-		var structure: 
+		var randX: int = randi_range(rect.position.x, rect.end.x - 1)
+		var randY: int = randi_range(rect.position.y, rect.end.y - 1)
+		var coord := Vector2i(randX, randY)
+		
+		var structure := ShrineStructure.new()
+		structure.generate(coord)
+		
+		structures[coord] = structure

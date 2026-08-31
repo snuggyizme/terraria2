@@ -22,3 +22,30 @@ func setBlock(localPos: Vector2i, block: StringName) -> void:
 
 func isSolid(localPos: Vector2i) -> bool:
 	return ( getBlock(localPos) != &"_" )
+
+func getChunkPos(globalPos: Vector2i) -> Vector2i:
+	return Vector2i(
+		floori(float(globalPos.x) / Global.DIMENSION.x),
+		floori(float(globalPos.y) / Global.DIMENSION.y),
+	)
+
+func isInNeighbouringChunk(globalPos: Vector2i) -> bool:
+	var targetChunkPos := getChunkPos(globalPos)
+	
+	return (
+		( abs(targetChunkPos.x - chunkPos.x) <= 1 ) &&
+		( abs(targetChunkPos.x - chunkPos.y <= 1) )
+	)
+
+func isInCurrentChunk(globalPos: Vector2i) -> bool:
+	var rect := Rect2i(
+		chunkPos, chunkPos + Global.DIMENSION
+	)
+	
+	return ( rect.has_point(globalPos) )
+
+func globalToLocal(globalPos: Vector2i) -> Vector2i:
+	return Vector2i(
+		posmod(globalPos.x, Global.DIMENSION.x),
+		posmod(globalPos.y, Global.DIMENSION.y)
+	)

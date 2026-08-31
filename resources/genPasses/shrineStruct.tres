@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StructurePlacerGenerationPass" format=3 uid="uid://ce3ndh0b0xpdt"]
+
+[ext_resource type="Script" uid="uid://ds528ui60wgr4" path="res://scripts/resourceDefinitions/generationPasses/structurePlacerGenerationPass.gd" id="1_gnvqd"]
+[ext_resource type="Script" uid="uid://e7ytexf4stpy" path="res://scripts/resourceDefinitions/structures/shrine.gd" id="2_1u4e4"]
+
+[resource]
+script = ExtResource("1_gnvqd")
+structureType = ExtResource("2_1u4e4")
+replaceableBlocks = Array[StringName]([&"stone", &"_", &"granite", &"mica", &"andesite", &"dirt"])
+metadata/_custom_type_script = "uid://ds528ui60wgr4"
