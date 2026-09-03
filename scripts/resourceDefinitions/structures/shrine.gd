@@ -18,6 +18,9 @@ const KEY: Dictionary[String, StringName] = {
 	"X": &"shineStone",
 }
 
+func _init(globalPos) -> void:
+	generate(globalPos)
+
 func generate(_globalPos: Vector2i) -> void:
 	blocks = parseStringShape(SHAPE, KEY)
 	
