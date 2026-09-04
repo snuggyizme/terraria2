@@ -1,5 +1,6 @@
-class_name WorldGenerationContext extends RefCounted
+class_name WorldGenerationContext extends RefCounted # make resource for save/loading.
 
+var chunks: Dictionary[Vector2i, Chunk]
 var mySeed: int = 0
 var dimension: Vector2i
 var structures: Dictionary[Vector2i, Structure] = {}

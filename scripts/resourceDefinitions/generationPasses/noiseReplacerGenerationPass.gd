@@ -1,4 +1,4 @@
-@icon("res://assets/sprites/redStar.png")
+@icon("res://assets/sprites/_debug/redStar.png")
 class_name NoiseReplacerGenerationPass extends GenerationPass
 
 @export var targets: Array[StringName]

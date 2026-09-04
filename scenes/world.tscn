@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b2sm6gwvyn4rk" path="res://scenes/playerCharacter.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://c0m83nl5c7xn8" path="res://scripts/chunkController.gd" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://b4gm5ih40rkal" path="res://scripts/f3.gd" id="3_4wyf3"]
-[ext_resource type="Texture2D" uid="uid://d16n48bt01u6d" path="res://assets/_debug/check.png" id="4_k0juu"]
+[ext_resource type="Texture2D" uid="uid://d16n48bt01u6d" path="res://assets/sprites/_debug/check.png" id="4_k0juu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
 bg_color = Color(0, 0, 0, 0.3019608)

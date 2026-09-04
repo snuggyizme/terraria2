@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StructureGenerationPass" format=3 uid="uid://bmwg3kmjr7apo"]
+
+[ext_resource type="Script" uid="uid://y2q1c87thvap" path="res://scripts/resourceDefinitions/generationPasses/structureGenerationPass.gd" id="1_dev6r"]
+[ext_resource type="Script" uid="uid://e7ytexf4stpy" path="res://scripts/resourceDefinitions/structures/shrine.gd" id="2_hoxro"]
+
+[resource]
+script = ExtResource("1_dev6r")
+allowedBlockOverrides = Array[StringName]([&"stone", &"_", &"andesite", &"dirt"])
+structureType = ExtResource("2_hoxro")
+metadata/_custom_type_script = "uid://y2q1c87thvap"

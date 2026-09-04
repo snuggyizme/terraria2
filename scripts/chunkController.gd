@@ -52,6 +52,7 @@ func update() -> void:
 		chunk.chunkPosition = i
 		add_child(chunk)
 		loadedChunks[i] = chunk
+		Global.worldGenerationContext.chunks[i] = chunk
 		
 		chunkCreated.emit(await chunk.chunkReady)
 	

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c21m1860fbel5"
-path="res://.godot/imported/abomination.png-19ee3216d2e2b3b342e6c7b549abb336.ctex"
+path="res://.godot/imported/abomination.png-cf2914e28afb247f5f60786114dbddf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/abomination.png"
-dest_files=["res://.godot/imported/abomination.png-19ee3216d2e2b3b342e6c7b549abb336.ctex"]
+source_file="res://assets/sprites/_debug/abomination.png"
+dest_files=["res://.godot/imported/abomination.png-cf2914e28afb247f5f60786114dbddf7.ctex"]
 
 [params]
 

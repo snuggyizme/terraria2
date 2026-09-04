@@ -31,6 +31,7 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://assets/sprites/_debug/": "red",
 "res://biomes/": "orange",
 "res://blocks/": "yellow"
 }

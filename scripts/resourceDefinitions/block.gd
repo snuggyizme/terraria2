@@ -1,4 +1,4 @@
-@icon("res://assets/sprites/theThingo.png")
+@icon("res://assets/sprites/_debug/theThingo.png")
 class_name Block extends Resource
 
 @export_group("Display")

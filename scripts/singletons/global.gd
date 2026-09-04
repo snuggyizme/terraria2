@@ -35,53 +35,53 @@ var biomeArray: Array[Biome]
 var worldGenerationContext: WorldGenerationContext
 
 func _ready() -> void:
-    worldGenerationContext = WorldGenerationContext.new(
-        Global.WORLD_DIMENSION
-    )
-    
-    blockDict = getBlocks()
-    biomeArray = getBiomes()
-    
-    # Todo: base this off of worldGenerationContext.mySeed instead of unrelated
-    randomize()
-    noise.seed = randi()
-    genBiomeNoise.seed = randi()
-    stoneTypeNoise.seed = randi()
+	worldGenerationContext = WorldGenerationContext.new(
+		Global.WORLD_DIMENSION
+	)
+	
+	blockDict = getBlocks()
+	biomeArray = getBiomes()
+	
+	# Todo: base this off of worldGenerationContext.mySeed instead of unrelated
+	randomize()
+	noise.seed = randi()
+	genBiomeNoise.seed = randi()
+	stoneTypeNoise.seed = randi()
 
 func getBlocks(debug := false) -> Dictionary[StringName, Block]:
-    var export: Dictionary[StringName, Block] = {}
-    
-    var dir := DirAccess.open("res://blocks")
-    dir.list_dir_begin()
-    
-    for file: String in dir.get_files():
-        var resource := load("res://blocks/" + file)
-        
-        if (file.get_extension() == "tres"):
-            file = file.replace(".tres", "")
-        
-        if debug:
-            print(resource)
-        
-        export[StringName(file)] = resource
-    
-    return export
+	var export: Dictionary[StringName, Block] = {}
+	
+	var dir := DirAccess.open("res://blocks")
+	dir.list_dir_begin()
+	
+	for file: String in dir.get_files():
+		var resource := load("res://blocks/" + file)
+		
+		if (file.get_extension() == "tres"):
+			file = file.replace(".tres", "")
+		
+		if debug:
+			print(resource)
+		
+		export[StringName(file)] = resource
+	
+	return export
 
 func getBiomes(debug := false) -> Array[Biome]:
-    var export: Array[Biome] = []
-    
-    var dir := DirAccess.open("res://biomes")
-    dir.list_dir_begin()
-    
-    for file: String in dir.get_files():
-        var resource := load("res://biomes/" + file)
-        
-        if (file.get_extension() == "tres"):
-            file = file.replace(".tres", "")
-        
-        if debug:
-            print(resource)
-        
-        export.append(resource)
-    
-    return export
+	var export: Array[Biome] = []
+	
+	var dir := DirAccess.open("res://biomes")
+	dir.list_dir_begin()
+	
+	for file: String in dir.get_files():
+		var resource := load("res://biomes/" + file)
+		
+		if (file.get_extension() == "tres"):
+			file = file.replace(".tres", "")
+		
+		if debug:
+			print(resource)
+		
+		export.append(resource)
+	
+	return export

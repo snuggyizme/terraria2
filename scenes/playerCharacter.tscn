@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2sm6gwvyn4rk"]
 
 [ext_resource type="Script" uid="uid://clagy45e22wqh" path="res://scripts/playerCharacter.gd" id="1_2jmuu"]
-[ext_resource type="Texture2D" uid="uid://c21m1860fbel5" path="res://assets/sprites/abomination.png" id="2_qn7b7"]
+[ext_resource type="Texture2D" uid="uid://c21m1860fbel5" path="res://assets/sprites/_debug/abomination.png" id="2_qn7b7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(6, 14)
