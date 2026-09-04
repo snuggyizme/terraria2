@@ -12,6 +12,9 @@ var chunkSizePixels: Vector2i = Global.DIMENSION * Global.TILE_DIMENSION
 var updateRunning: bool = false
 var updatePending: bool = false
 
+func _ready() -> void:
+	Global.chunkController = self
+
 func _physics_process(_delta: float) -> void:
 	var currentPlayerChunk = Vector2i(
 		floor(player.global_position.x / chunkSizePixels.x),
@@ -55,6 +58,8 @@ func update() -> void:
 		Global.worldGenerationContext.chunks[i] = chunk
 		
 		chunkCreated.emit(await chunk.chunkReady)
+		
+		Global.worldGenerationContext.addChunkData(i)
 	
 	# Find and unload all chunks we dont want but have
 	for i in loadedChunks.keys():

@@ -6,9 +6,6 @@ signal opened(world: WorldGenerationContext)
 
 var world: WorldGenerationContext
 
-func _init(w: WorldGenerationContext) -> void:
-	world = w
-
 func _ready() -> void:
 	label.text = world.name
 

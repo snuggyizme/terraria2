@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://t1jwcf1klafn" path="res://scripts/_debug/worldContainer.gd" id="1_3jfeq"]
 
-[node name="WorldContainer" type="PanelContainer" unique_id=663982056]
+[node name="WorldContainer" type="PanelContainer" unique_id=663982056 node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(250, 65)
 custom_maximum_size = Vector2(250, 65)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_3jfeq")
+label = NodePath("HBoxContainer/Label")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=961908200]
 layout_mode = 2

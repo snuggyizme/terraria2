@@ -32,22 +32,23 @@ const UNDERGROUND_NOISE_MICA_THRESHOLD = 0.7 ## > means mica
 
 var blockDict: Dictionary[StringName, Block]
 var biomeArray: Array[Biome]
-var worldGenerationContext: WorldGenerationContext
+var worldGenerationContext: WorldGenerationContext:
+	set(x):
+		worldGenerationContext = x
+		
+		noise.seed = worldGenerationContext.mySeed
+		genBiomeNoise.seed = worldGenerationContext.mySeed
+		stoneTypeNoise.seed = worldGenerationContext.mySeed
+var chunkController: ChunkController
 
 func _ready() -> void:
 	blockDict = getBlocks()
 	biomeArray = getBiomes()
-	
-	# Todo: base this off of worldGenerationContext.mySeed instead of unrelated
-	randomize()
-	noise.seed = randi()
-	genBiomeNoise.seed = randi()
-	stoneTypeNoise.seed = randi()
 
 func makeNewWorld() -> void:
-	worldGenerationContext = WorldGenerationContext.new(
-		Global.WORLD_DIMENSION
-	)
+	randomize()
+	worldGenerationContext = WorldGenerationContext.new()
+	worldGenerationContext.setup(Global.WORLD_DIMENSION, randi())
 
 func getBlocks(debug := false) -> Dictionary[StringName, Block]:
 	var export: Dictionary[StringName, Block] = {}

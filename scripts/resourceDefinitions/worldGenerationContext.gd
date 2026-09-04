@@ -1,21 +1,31 @@
 class_name WorldGenerationContext extends Resource
 
 var chunks: Dictionary[Vector2i, Chunk]
-var mySeed: int = 0
-var dimension: Vector2i
-var structures: Dictionary[Vector2i, Structure] = {}
-var name: String = str(randi())
+@export var chunkData: Dictionary[Vector2i, ChunkData]
+@export var mySeed: int = 0
+@export var dimension: Vector2i
+@export var structures: Dictionary[Vector2i, Structure] = {}
+@export var name: String
 
 var worldRect := Rect2i(
 	Global.DIMENSION * -Global.WORLD_DIMENSION / 2.0,
 	Global.DIMENSION * +Global.WORLD_DIMENSION,
 )
 
-func _init(
-	sizeInChunks: Vector2i
+func addChunkData(chunkPos: Vector2i) -> void:
+	var chunk: Chunk = chunks[chunkPos]
+	var data := ChunkData.new()
+	data.blocks = chunk.blocks
+	data.atlasIndices = chunk.getAtlasIndices()
+	data.atlasCoords = chunk.getAtlasCoords()
+	chunkData[chunkPos] = data 
+
+func setup(
+	sizeInChunks: Vector2i, s: int
 ) -> void:
 	dimension = sizeInChunks
-	mySeed = randi()
+	mySeed = s
+	name = str(randi())
 
 func generateStructures() -> void:
 	for i in range(Global.structureCountShrine):

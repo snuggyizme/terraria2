@@ -43,7 +43,7 @@ func generate() -> void:
 		for y in range(-1, Global.DIMENSION.y + 1):
 			var coord := Vector2i(x, y)
 			
-			if blocks.has(coord) != null:
+			if blocks.has(coord):
 				if (
 					blocks[coord] != &"_" and
 					(
@@ -145,3 +145,33 @@ func calcBiomes() -> Array[Biome]:
 				biomes[biome.zOrder] = biome
 	
 	return biomes
+
+func getAtlasCoords() -> Dictionary[Vector2i, Vector2i]:
+	var export: Dictionary[Vector2i, Vector2i] = {}
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			export[coord] = tileMap.get_cell_atlas_coords(coord)
+	return export
+
+func getAtlasIndices() -> Dictionary[Vector2i, int]:
+	var export: Dictionary[Vector2i, int] = {}
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			export[coord] = tileMap.get_cell_source_id(coord)
+	return export
+
+func setChunkCells(
+	atlasIndices: Dictionary[Vector2i, int],
+	atlasCoords: Dictionary[Vector2i, Vector2i]
+) -> void:
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			tileMap.set_cell(
+				coord, atlasIndices[coord], atlasCoords[coord]
+			)

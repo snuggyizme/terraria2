@@ -5,12 +5,12 @@ func saveToFile() -> void:
 		DirAccess.make_dir_absolute("user://worlds")
 	
 	var result: Error = ResourceSaver.save(
-		Global.worldGenerationContext.duplicate(), "user://worlds".path_join(
-			Global.worldGenerationContext.name + ".res"
+		Global.worldGenerationContext, "user://worlds".path_join(
+			Global.worldGenerationContext.name + ".tres"
 		)
 	)
 	
-	print(result)
+	print("SAVE TO FILE - ", result)
 
 func getSavedWorlds() -> Array[WorldGenerationContext]:
 	var export: Array[WorldGenerationContext] = []
@@ -19,13 +19,21 @@ func getSavedWorlds() -> Array[WorldGenerationContext]:
 		DirAccess.make_dir_absolute("user://worlds")
 	
 	var worldsFolder: DirAccess = DirAccess.open("user://worlds")
+	if worldsFolder == null:
+		print("LOADING WORLDS - CANT LOAD FOLDER")
+		return export
 	
 	worldsFolder.list_dir_begin()
 	
 	for file: String in worldsFolder.get_files():
-		var resource := load("user://worlds/" + file)
+		if file.ends_with(".res") or file.ends_with(".tres"):
+			var resource := load("user://worlds/" + file)
+			
+			if resource is WorldGenerationContext:
+				export.append(resource)
+			else:
+				print("LOADING WORLDS - CANT LOAD RESOURCE")
 		
-		export.append(resource)
 	
 	worldsFolder.list_dir_end()
 	
