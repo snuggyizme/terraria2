@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cwgx7qrlw2qb5"]
+
+[ext_resource type="Script" uid="uid://t1jwcf1klafn" path="res://scripts/_debug/worldContainer.gd" id="1_3jfeq"]
+
+[node name="WorldContainer" type="PanelContainer" unique_id=663982056]
+custom_minimum_size = Vector2(250, 65)
+custom_maximum_size = Vector2(250, 65)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3jfeq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=961908200]
+layout_mode = 2
+
+[node name="OpenButton" type="Button" parent="HBoxContainer" unique_id=2091049945]
+custom_minimum_size = Vector2(65, 0)
+custom_maximum_size = Vector2(65, 65)
+layout_mode = 2
+text = "Open"
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1169030069]
+layout_mode = 2
+text = "WORLD NAME"
+
+[connection signal="pressed" from="HBoxContainer/OpenButton" to="." method="_onOpenButtonPressed"]

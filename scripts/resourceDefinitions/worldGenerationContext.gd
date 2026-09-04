@@ -1,9 +1,10 @@
-class_name WorldGenerationContext extends RefCounted # make resource for save/loading.
+class_name WorldGenerationContext extends Resource
 
 var chunks: Dictionary[Vector2i, Chunk]
 var mySeed: int = 0
 var dimension: Vector2i
 var structures: Dictionary[Vector2i, Structure] = {}
+var name: String = str(randi())
 
 var worldRect := Rect2i(
 	Global.DIMENSION * -Global.WORLD_DIMENSION / 2.0,

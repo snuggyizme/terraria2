@@ -35,10 +35,6 @@ var biomeArray: Array[Biome]
 var worldGenerationContext: WorldGenerationContext
 
 func _ready() -> void:
-	worldGenerationContext = WorldGenerationContext.new(
-		Global.WORLD_DIMENSION
-	)
-	
 	blockDict = getBlocks()
 	biomeArray = getBiomes()
 	
@@ -47,6 +43,11 @@ func _ready() -> void:
 	noise.seed = randi()
 	genBiomeNoise.seed = randi()
 	stoneTypeNoise.seed = randi()
+
+func makeNewWorld() -> void:
+	worldGenerationContext = WorldGenerationContext.new(
+		Global.WORLD_DIMENSION
+	)
 
 func getBlocks(debug := false) -> Dictionary[StringName, Block]:
 	var export: Dictionary[StringName, Block] = {}

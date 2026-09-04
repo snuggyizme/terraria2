@@ -4,12 +4,31 @@
 [ext_resource type="Script" uid="uid://c0m83nl5c7xn8" path="res://scripts/chunkController.gd" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://b4gm5ih40rkal" path="res://scripts/f3.gd" id="3_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://d16n48bt01u6d" path="res://assets/sprites/_debug/check.png" id="4_k0juu"]
+[ext_resource type="Script" uid="uid://b5jcgabthujit" path="res://scripts/f3Buttons.gd" id="5_71j4m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
 bg_color = Color(0, 0, 0, 0.3019608)
 corner_radius_bottom_right = 14
 corner_detail = 1
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71j4m"]
+bg_color = Color(0, 0, 0, 0.3019608)
+corner_radius_bottom_left = 14
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfnet"]
+bg_color = Color(0.46, 0.46, 0.46, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7141"]
+bg_color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4mrxx"]
+bg_color = Color(0.4022545, 0.4391529, 0.67061776, 1)
+corner_detail = 1
 
 [node name="World" type="Node2D" unique_id=2019267694]
 
@@ -67,3 +86,34 @@ texture = ExtResource("4_k0juu")
 position = Vector2(7.0000005, 195)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")
+
+[node name="RightPanel" type="PanelContainer" parent="F3" unique_id=1459351945]
+offset_left = 1517.0
+offset_right = 1920.0
+offset_bottom = 439.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_71j4m")
+script = ExtResource("5_71j4m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="F3/RightPanel" unique_id=1007622908]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="F3/RightPanel/HBoxContainer" unique_id=398143097]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Padding" type="Control" parent="F3/RightPanel/HBoxContainer/VBoxContainer" unique_id=153237211]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="SaveWorldButton" type="Button" parent="F3/RightPanel/HBoxContainer/VBoxContainer" unique_id=1806181926]
+custom_minimum_size = Vector2(300, 40)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_qfnet")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i7141")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4mrxx")
+text = "Save world"
+
+[connection signal="pressed" from="F3/RightPanel/HBoxContainer/VBoxContainer/SaveWorldButton" to="F3/RightPanel" method="_onSaveWorldButtonPressed"]
