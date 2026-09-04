@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b4gm5ih40rkal" path="res://scripts/f3.gd" id="3_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://d16n48bt01u6d" path="res://assets/sprites/_debug/check.png" id="4_k0juu"]
 [ext_resource type="Script" uid="uid://b5jcgabthujit" path="res://scripts/f3Buttons.gd" id="5_71j4m"]
+[ext_resource type="Texture2D" uid="uid://bs7noygxc47ox" path="res://assets/sprites/_debug/skip.png" id="5_qfnet"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0juu"]
 bg_color = Color(0, 0, 0, 0.3019608)
@@ -46,11 +47,16 @@ metadata/_edit_lock_ = true
 [node name="Sun" type="DirectionalLight2D" parent="." unique_id=21819411]
 shadow_enabled = true
 
-[node name="F3" type="CanvasLayer" parent="." unique_id=354293283 node_paths=PackedStringArray("chunkController", "leftLabel", "ticks")]
+[node name="F3" type="CanvasLayer" parent="." unique_id=354293283 node_paths=PackedStringArray("chunkController", "leftLabel", "ticks", "skipSprite")]
 script = ExtResource("3_4wyf3")
 chunkController = NodePath("../ChunkController")
 leftLabel = NodePath("Label")
 ticks = [NodePath("TickGen"), NodePath("TickTerrainMask"), NodePath("TickSetCellsTerrainConnect"), NodePath("TickTile")]
+skipSprite = NodePath("Skip")
+skipTrans1 = 9
+skipTrans2 = 10
+skipEase2 = 2
+skipRotation = 16.0
 
 [node name="Label" type="Label" parent="F3" unique_id=1527409340]
 custom_minimum_size = Vector2(300, 0)
@@ -86,6 +92,12 @@ texture = ExtResource("4_k0juu")
 position = Vector2(7.0000005, 195)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")
+
+[node name="Skip" type="Sprite2D" parent="F3" unique_id=569002729]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(219, 121)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("5_qfnet")
 
 [node name="RightPanel" type="PanelContainer" parent="F3" unique_id=1459351945]
 offset_left = 1517.0

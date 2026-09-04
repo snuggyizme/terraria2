@@ -1,6 +1,11 @@
 class_name DevourerOfGods extends Node
 
 func saveToFile() -> void:
+	# Make all chunk data resources save their memory representations (dictionaries of
+	# stringnames, vectors and ints) back into the packed arrays again.
+	for i in Global.worldGenerationContext.chunkData.values():
+		i.save()
+	
 	if not DirAccess.dir_exists_absolute("user://worlds"):
 		DirAccess.make_dir_absolute("user://worlds")
 	

@@ -6,7 +6,7 @@ func _ready() -> void:
 	var worlds: Array[WorldGenerationContext] = World.getSavedWorlds()
 	for i in worlds:
 		var worldContainer: WorldContainer = preload("res://scenes/_debug/worldContainer.tscn").instantiate()
-		print(i)
+		print("WORLD", i)
 		worldContainer.world = i
 		worldContainer.opened.connect(_onWorldLoaded)
 		vBox.add_child(worldContainer)

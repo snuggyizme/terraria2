@@ -53,11 +53,14 @@ func update() -> void:
 	for i in queue:
 		var chunk: Chunk = CHUNK_SCENE.instantiate()
 		chunk.chunkPosition = i
-		add_child(chunk)
 		loadedChunks[i] = chunk
 		Global.worldGenerationContext.chunks[i] = chunk
 		
-		chunkCreated.emit(await chunk.chunkReady)
+		add_child.call_deferred(chunk)
+		
+		var args: Array = await chunk.chunkReady
+		
+		chunkCreated.emit(args[0], args[1])
 		
 		Global.worldGenerationContext.addChunkData(i)
 	
