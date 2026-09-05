@@ -19,7 +19,6 @@ var tileTime: float
 @onready var tileMap: TileMapLayer = $TileMapLayer
 
 func _ready() -> void:
-	print("{", chunkPosition, "}: ", "Onready")
 	finishedGen.connect(SignalInterchange._chunkFinishedGen)
 	finishedTerrainMask.connect(SignalInterchange._chunkFinishedTerrainMask)
 	finishedSetCellsTerrainConnect.connect(SignalInterchange._chunkFinishedSetCellsTerrainConnect)
@@ -30,13 +29,10 @@ func _ready() -> void:
 	startTime = Time.get_ticks_msec()
 	
 	var generated: bool = generate()
-	print("{", chunkPosition, "}: ", "Generate returned")
 	
 	if generated:
-		print("{", chunkPosition, "}: ", "Start update")
 		update()
 	else:
-		print("{", chunkPosition, "}: ", "Emit ready")
 		chunkReady.emit({}, true)
 
 func generate() -> bool:

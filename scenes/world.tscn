@@ -74,21 +74,25 @@ Avg chunk times:
 metadata/_edit_lock_ = true
 
 [node name="TickGen" type="Sprite2D" parent="F3" unique_id=1723812414]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(7, 117)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")
 
 [node name="TickTerrainMask" type="Sprite2D" parent="F3" unique_id=1769354395]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(7.0000005, 141)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")
 
 [node name="TickSetCellsTerrainConnect" type="Sprite2D" parent="F3" unique_id=586011475]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(7.0000005, 168.00002)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")
 
 [node name="TickTile" type="Sprite2D" parent="F3" unique_id=1970804004]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(7.0000005, 195)
 scale = Vector2(1.9642856, 1.9642859)
 texture = ExtResource("4_k0juu")

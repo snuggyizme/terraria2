@@ -2,10 +2,12 @@ class_name DevourerOfGods extends Node
 
 var world: WorldGenerationContext
 
-func _init() -> void:
+func fetchWorld() -> void:
 	world = Global.worldGenerationContext
 
 func saveToFile() -> void:
+	fetchWorld()
+	
 	if not DirAccess.dir_exists_absolute("user://worlds"):
 		DirAccess.make_dir_absolute("user://worlds")
 	
@@ -45,6 +47,8 @@ func getSavedWorlds() -> Array[WorldGenerationContext]:
 	return export
 
 func setBlock(globalPos: Vector2i, block: StringName) -> void:
+	fetchWorld()
+	
 	var chunkPos := Vector2i(
 		floori(float(globalPos.x) / Global.DIMENSION.x),
 		floori(float(globalPos.y) / Global.DIMENSION.y),
@@ -67,7 +71,22 @@ func setBlock(globalPos: Vector2i, block: StringName) -> void:
 		world.pendingBlocks[chunkPos][localPos] = block
 
 func getBlock(globalPos: Vector2i) -> StringName:
+	fetchWorld()
 	
+	var chunkPos := Vector2i(
+		floori(float(globalPos.x) / Global.DIMENSION.x),
+		floori(float(globalPos.y) / Global.DIMENSION.y),
+	)
+	
+	var localPos := Vector2i(
+		posmod(globalPos.x, Global.DIMENSION.x),
+		posmod(globalPos.y, Global.DIMENSION.y)
+	)
+	
+	# Should this generate the chunk to get it or nah?
+	if world.chunkData.has(chunkPos):
+		return world.chunkData[chunkPos].blocks.get(localPos, &"_missing")
+	return &"_missing"
 
 func isBlock(globalPos: Vector2i, block: StringName) -> bool:
 	return ( getBlock(globalPos) == block )
