@@ -6,6 +6,7 @@ var chunks: Dictionary[Vector2i, Chunk]
 @export var dimension: Vector2i
 @export var structures: Dictionary[Vector2i, Structure] = {}
 @export var name: String
+@export var pendingBlocks: Dictionary[Vector2i, Dictionary] # Dictionary[Vector2i, Dictionary[Vector2i, StringName]]
 
 var worldRect := Rect2i(
 	Global.DIMENSION * -Global.WORLD_DIMENSION / 2.0,
@@ -18,6 +19,9 @@ func addChunkData(chunkPos: Vector2i) -> void:
 	data.blocks = chunk.blocks
 	data.atlasIndices = chunk.getAtlasIndices()
 	data.atlasCoords = chunk.getAtlasCoords()
+	
+	data.save()
+	
 	chunkData[chunkPos] = data 
 
 func setup(
@@ -26,6 +30,9 @@ func setup(
 	dimension = sizeInChunks
 	mySeed = s
 	name = str(randi())
+	
+	for chunk: ChunkData in chunkData.values():
+		chunk.loadData()
 
 func generateStructures() -> void:
 	for i in range(Global.structureCountShrine):

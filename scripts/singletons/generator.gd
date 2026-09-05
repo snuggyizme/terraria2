@@ -18,6 +18,15 @@ func generate(context: GenerationContext, chunk: Chunk) -> bool: ## Returns whet
 func loadChunk(context: GenerationContext, chunk: Chunk) -> void:
 	var chunkData: ChunkData = context.world.chunkData[context.chunkPos]
 	
+	chunkData.loadData()
+	
+	print("array size: ", chunkData.saveAtlasIndices.size())
+	print("dict size: ", chunkData.atlasIndices.size())
+	print("has (-1,-1): ", chunkData.atlasIndices.has(Vector2i(-1, -1)))
+	print("has (0,-1): ", chunkData.atlasIndices.has(Vector2i(0, -1)))
+	print("keys: ", chunkData.atlasIndices.keys())
+	
+	
 	chunk.blocks.clear()
 	chunk.blocks.merge(chunkData.blocks)
 	

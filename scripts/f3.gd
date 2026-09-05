@@ -87,7 +87,7 @@ func _onChunkCreated(times: Dictionary, skip: bool) -> void:
 		tween2.tween_property(
 			skipSprite, "rotation_degrees", 0.0, 0.35
 		)
-		
+		return
 	
 	chunkTimes.append(times)
 	avgChunkTimes = avgChunks(chunkTimes)
