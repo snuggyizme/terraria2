@@ -122,7 +122,7 @@ metadata/_edit_lock_ = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="SaveWorldButton" type="Button" parent="F3/RightPanel/HBoxContainer/VBoxContainer" unique_id=1806181926]
+[node name="SaveWorldTRESButton" type="Button" parent="F3/RightPanel/HBoxContainer/VBoxContainer" unique_id=1806181926]
 custom_minimum_size = Vector2(300, 40)
 custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
@@ -130,6 +130,17 @@ size_flags_horizontal = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_qfnet")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i7141")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4mrxx")
-text = "Save world"
+text = "Save world (.TRES)"
 
-[connection signal="pressed" from="F3/RightPanel/HBoxContainer/VBoxContainer/SaveWorldButton" to="F3/RightPanel" method="_onSaveWorldButtonPressed"]
+[node name="SaveWorldRESButton2" type="Button" parent="F3/RightPanel/HBoxContainer/VBoxContainer" unique_id=2105566248]
+custom_minimum_size = Vector2(300, 40)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_qfnet")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i7141")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4mrxx")
+text = "Save world (.RES)"
+
+[connection signal="pressed" from="F3/RightPanel/HBoxContainer/VBoxContainer/SaveWorldTRESButton" to="F3/RightPanel" method="_onSaveWorldTRESButtonPressed"]
+[connection signal="pressed" from="F3/RightPanel/HBoxContainer/VBoxContainer/SaveWorldRESButton2" to="F3/RightPanel" method="_onSaveWorldRESButtonPressed"]

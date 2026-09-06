@@ -5,15 +5,17 @@ var world: WorldGenerationContext
 func fetchWorld() -> void:
 	world = Global.worldGenerationContext
 
-func saveToFile() -> void:
+func saveToFile(saveTres: bool) -> void:
 	fetchWorld()
+	
+	var ext: String = ".tres" if saveTres else ".res"
 	
 	if not DirAccess.dir_exists_absolute("user://worlds"):
 		DirAccess.make_dir_absolute("user://worlds")
 	
 	var result: Error = ResourceSaver.save(
 		world, "user://worlds".path_join(
-			world.name + ".tres"
+			world.name + ext
 		)
 	)
 	

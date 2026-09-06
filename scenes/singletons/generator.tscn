@@ -9,7 +9,8 @@
 [ext_resource type="Resource" uid="uid://dbno65eetabrx" path="res://resources/genPasses/dirtUnderground.tres" id="5_umcwn"]
 [ext_resource type="Resource" uid="uid://crlntnll1kg56" path="res://resources/genPasses/andesite.tres" id="7_umcwn"]
 [ext_resource type="Resource" uid="uid://bmwg3kmjr7apo" path="res://resources/genPasses/structureShrine.tres" id="9_procc"]
+[ext_resource type="Resource" uid="uid://bqft27r220kuq" path="res://resources/genPasses/pendingBlocks.tres" id="10_7ot38"]
 
 [node name="Generator" type="Node" unique_id=1061561749]
 script = ExtResource("1_w83et")
-passes = Array[ExtResource("2_y1b5p")]([ExtResource("3_3tyiu"), ExtResource("5_buh6o"), ExtResource("4_buh6o"), ExtResource("5_umcwn"), ExtResource("7_umcwn"), ExtResource("5_4fms4"), ExtResource("9_procc")])
+passes = Array[ExtResource("2_y1b5p")]([ExtResource("3_3tyiu"), ExtResource("5_buh6o"), ExtResource("4_buh6o"), ExtResource("5_umcwn"), ExtResource("7_umcwn"), ExtResource("5_4fms4"), ExtResource("9_procc"), ExtResource("10_7ot38")])
