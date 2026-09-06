@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*uid://c2pkxi2cpjfxl"
 SignalInterchange="*uid://1bdjul0dvtat"
+Global="*uid://coehlp4d3q6v"
 
 [display]
 
@@ -30,6 +30,7 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://biomes/": "orange",
 "res://blocks/": "yellow"
 }
 

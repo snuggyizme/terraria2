@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="Biome" format=3 uid="uid://iob5fh5j306v"]
+
+[ext_resource type="Script" uid="uid://cxg2kwv7teupl" path="res://scripts/resourceDefinitions/biomeRequirement.gd" id="1_2h3og"]
+[ext_resource type="Script" uid="uid://la05j6flaffm" path="res://scripts/resourceDefinitions/biome.gd" id="2_bj21j"]
+[ext_resource type="Script" uid="uid://cmr0u858tslue" path="res://scripts/resourceDefinitions/biomeRequirements/blocksOfTypeRequirement.gd" id="2_et2mx"]
+[ext_resource type="Script" uid="uid://c08a4the21osn" path="res://scripts/resourceDefinitions/biomeRequirements/orGateRequirement.gd" id="3_et2mx"]
+
+[sub_resource type="Resource" id="Resource_k0juu"]
+script = ExtResource("2_et2mx")
+block = &"snow"
+count = 50
+metadata/_custom_type_script = "uid://cmr0u858tslue"
+
+[sub_resource type="Resource" id="Resource_qfnet"]
+script = ExtResource("2_et2mx")
+block = &"packedIce"
+count = 5
+metadata/_custom_type_script = "uid://cmr0u858tslue"
+
+[sub_resource type="Resource" id="Resource_f0jhg"]
+script = ExtResource("2_et2mx")
+block = &"ice"
+count = 50
+metadata/_custom_type_script = "uid://cmr0u858tslue"
+
+[sub_resource type="Resource" id="Resource_4llrm"]
+script = ExtResource("3_et2mx")
+a = SubResource("Resource_qfnet")
+b = SubResource("Resource_f0jhg")
+metadata/_custom_type_script = "uid://c08a4the21osn"
+
+[resource]
+script = ExtResource("2_bj21j")
+title = "Tundra"
+zOrder = 5
+requirements = Array[ExtResource("1_2h3og")]([SubResource("Resource_k0juu"), SubResource("Resource_4llrm")])
+metadata/_custom_type_script = "uid://la05j6flaffm"

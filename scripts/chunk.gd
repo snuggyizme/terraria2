@@ -162,3 +162,13 @@ func update() -> void:
 		&"setCellsTerrainConnectTime": setCellsTerrainConnectTime, #
 		&"tileTime": tileTime, #
 	}) #
+
+func calcBiomes() -> Array[Biome]:
+	var biomes: Array[Biome] = []
+	
+	for biome: Biome in Global.biomeArray:
+		for requirement: BiomeRequirement in biome.requirements:
+			if requirement.check(blocks):
+				biomes[biome.zOrder] = biome
+	
+	return biomes
