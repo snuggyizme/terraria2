@@ -16,9 +16,10 @@ const HILL_HEIGHT := 20
 const DIRT_BUFFER_SIZE := 4
 const UNDERGROUND_NOISE_CAVE_THRESHOLD = -0.1 ## < means open air
 const UNDERGROUND_NOISE_ANDESITE_THRESHOLD = -0.2 ## < means andesite
+const UNDERGROUND_NOISE_GRANITE_THRESHOLD = 0.7
 
 @export var genBiomeNoise: FastNoiseLite
-@export var stoneTypeNoise: FastNoiseLite
+@export var stoneTypeNoise: FastNoiseLite # Granite only
 
 var blockDict: Dictionary[StringName, Block]
 var biomeArray: Array[Biome]

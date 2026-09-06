@@ -5,11 +5,13 @@
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ucjvr"]
 noise_type = 5
 seed = 11
-frequency = 0.0457
+frequency = 0.0091
 fractal_octaves = 6
 fractal_lacunarity = 1.82
-fractal_gain = 0.725
+fractal_gain = 1.435
 fractal_weighted_strength = 0.51
+domain_warp_enabled = true
+domain_warp_frequency = -0.015
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tyy3d"]
 noise_type = 4
@@ -18,7 +20,8 @@ frequency = 0.1023
 domain_warp_enabled = true
 domain_warp_type = 2
 
-[node name="Global" type="Node2D" unique_id=1904036231]
+[node name="Global" type="Node" unique_id=583500826]
 script = ExtResource("1_ucjvr")
 genBiomeNoise = SubResource("FastNoiseLite_ucjvr")
 stoneTypeNoise = SubResource("FastNoiseLite_tyy3d")
+metadata/_custom_type_script = "uid://c2pkxi2cpjfxl"
