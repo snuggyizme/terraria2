@@ -42,7 +42,7 @@ var worldGenerationContext: WorldGenerationContext:
 var chunkController: ChunkController
 
 func _ready() -> void:
-	blockDict = getblocks()
+	blockDict = getBlocks()
 	biomeArray = getBiomes()
 
 func makeNewWorld() -> void:
