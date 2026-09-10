@@ -62,7 +62,11 @@ func update() -> void:
 		
 		chunkCreated.emit(args[0], args[1])
 		
-		Global.worldGenerationContext.addChunkData(i)
+		if (
+			not Global.worldGenerationContext.chunkData.has(i)
+			or not Global.worldGenerationContext.chunkData[i].cachingIsValid
+		):
+			Global.worldGenerationContext.addChunkData(i)
 	
 	# Find and unload all chunks we dont want but have
 	for i in loadedChunks.keys():
