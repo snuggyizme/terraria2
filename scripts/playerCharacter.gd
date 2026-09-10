@@ -26,6 +26,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		normalProcess(delta)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("lmb"):
+		# Match what use should do (pickaxe - mine, block - place) later
+		mineBlockAtCursor()
+
 func normalProcess(delta: float) -> void:
 	if is_on_floor():
 		if Input.is_action_pressed("w"):
@@ -50,3 +55,16 @@ func noclipProcess(delta: float) -> void:
 		"a", "d", "w", "s",
 	)
 	global_position += dir * noclipSpeed * delta
+
+func mineBlockAtCursor() -> void:
+	var globalPos: Vector2 = get_global_mouse_position()
+	var chunkPos: Vector2i = GenerationContext.sGetChunkPos(globalPos)
+	var localPos: Vector2i = GenerationContext.sGetLocalPos(globalPos)
+	
+	if not Global.worldGenerationContext.chunkData.has(chunkPos):
+		return
+	
+	Global.worldGenerationContext.chunkData[chunkPos].blocks[localPos] = &"_"
+	if Global.worldGenerationContext.chunks.has(chunkPos):
+		Global.worldGenerationContext.chunks[chunkPos].blocks[localPos] = &"_"
+		Global.worldGenerationContext.chunks[chunkPos].update()

@@ -40,6 +40,12 @@ func getChunkPos(globalPos: Vector2i) -> Vector2i:
 		floori(float(globalPos.y) / Global.DIMENSION.y),
 	)
 
+static func sGetChunkPos(globalPos: Vector2i) -> Vector2i:
+	return Vector2i(
+		floori(float(globalPos.x) / Global.DIMENSION.x),
+		floori(float(globalPos.y) / Global.DIMENSION.y),
+	)
+
 func isInNeighbouringChunk(globalPos: Vector2i) -> bool:
 	var targetChunkPos := getChunkPos(globalPos)
 	
@@ -60,7 +66,14 @@ func globalToLocal(globalPos: Vector2i) -> Vector2i:
 		posmod(globalPos.x, Global.DIMENSION.x),
 		posmod(globalPos.y, Global.DIMENSION.y)
 	)
+
 func getLocalPos(globalPos: Vector2i) -> Vector2i:
+	return Vector2i(
+		posmod(globalPos.x, Global.DIMENSION.x),
+		posmod(globalPos.y, Global.DIMENSION.y),
+	)
+
+static func sGetLocalPos(globalPos: Vector2i) -> Vector2i:
 	return Vector2i(
 		posmod(globalPos.x, Global.DIMENSION.x),
 		posmod(globalPos.y, Global.DIMENSION.y),
