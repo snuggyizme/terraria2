@@ -62,6 +62,8 @@ func update() -> void:
 		
 		chunkCreated.emit(args[0], args[1])
 		
+		# If the chunk isn't cached (new chunk) or we haven't been there since
+		# it's last block update, store it's data.
 		if (
 			not Global.worldGenerationContext.chunkData.has(i)
 			or not Global.worldGenerationContext.chunkData[i].cachingIsValid
