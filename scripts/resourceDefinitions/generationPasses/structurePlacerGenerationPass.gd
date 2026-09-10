@@ -1,4 +1,4 @@
-@icon("res://assets/sprites/blueStar.png")
+@icon("res://assets/sprites/_debug/redStar.png")
 class_name StructurePlacerGenerationPass extends GenerationPass
 
 @export var structureType: Script
