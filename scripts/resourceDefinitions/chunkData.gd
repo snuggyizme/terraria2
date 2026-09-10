@@ -3,6 +3,7 @@ class_name ChunkData extends Resource
 @export var saveBlocks: PackedStringArray
 @export var saveAtlasIndices: PackedInt32Array
 @export var saveAtlasCoords: PackedVector2Array
+@export var cachingIsValid: bool = true
 
 var blocks: Dictionary[Vector2i, StringName] = {}
 var atlasIndices: Dictionary[Vector2i, int] = {}

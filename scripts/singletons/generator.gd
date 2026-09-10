@@ -7,15 +7,14 @@ func generate(context: GenerationContext, chunk: Chunk) -> bool: ## Returns whet
 		Global.makeNewWorld()
 	
 	if context.world.chunkData.has(context.chunkPos): # Load chunk
-		loadChunk(context, chunk)
-		return false
+		return loadChunk(context, chunk)
 	
 	# Generate chunk
 	for i in passes:
 		i.generate(context)
 	return true
 
-func loadChunk(context: GenerationContext, chunk: Chunk) -> void:
+func loadChunk(context: GenerationContext, chunk: Chunk) -> bool: ## Carries bool
 	var chunkData: ChunkData = context.world.chunkData[context.chunkPos]
 	
 	chunkData.loadData()
@@ -23,4 +22,7 @@ func loadChunk(context: GenerationContext, chunk: Chunk) -> void:
 	chunk.blocks.clear()
 	chunk.blocks.merge(chunkData.blocks)
 	
-	chunk.setChunkCells(chunkData.atlasIndices, chunkData.atlasCoords)
+	if chunkData.cachingIsValid:
+		chunk.setChunkCells(chunkData.atlasIndices, chunkData.atlasCoords)
+		return false
+	return true

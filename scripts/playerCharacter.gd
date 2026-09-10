@@ -61,10 +61,17 @@ func mineBlockAtCursor() -> void:
 	var chunkPos: Vector2i = GenerationContext.sGetChunkPos(globalPos)
 	var localPos: Vector2i = GenerationContext.sGetLocalPos(globalPos)
 	
+	# Not a loaded chunk, really, reach hacks or smth, not good eh?
 	if not Global.worldGenerationContext.chunkData.has(chunkPos):
 		return
 	
+	# Always add to persistent chunk data.
 	Global.worldGenerationContext.chunkData[chunkPos].blocks[localPos] = &"_"
+	# The caching of atlas coordinates & indicies is now wrong and we have to
+	# regenerate that sadly D:
+	Global.worldGenerationContext.chunkData[chunkPos].cachingIsValid = false
+	
+	# If the chunk is loaded in mem, update it's volatile data too.
 	if Global.worldGenerationContext.chunks.has(chunkPos):
 		Global.worldGenerationContext.chunks[chunkPos].blocks[localPos] = &"_"
 		Global.worldGenerationContext.chunks[chunkPos].update()
