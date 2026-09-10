@@ -23,6 +23,17 @@ func setBlock(localPos: Vector2i, block: StringName) -> void:
 func isSolid(localPos: Vector2i) -> bool:
 	return ( getBlock(localPos) != &"_" )
 
+func getGlobalBlock(globalPos: Vector2i) -> StringName:
+	var blockChunkPos: Vector2i = getChunkPos(globalPos)
+	var localPos: Vector2i = getLocalPos(globalPos)
+	
+	var chunk: Chunk = world.chunks.get(blockChunkPos)
+	
+	if chunk == null:
+		return &"_"
+	
+	return chunk.blocks.get(localPos, &"_")
+
 func getChunkPos(globalPos: Vector2i) -> Vector2i:
 	return Vector2i(
 		floori(float(globalPos.x) / Global.DIMENSION.x),
@@ -49,3 +60,11 @@ func globalToLocal(globalPos: Vector2i) -> Vector2i:
 		posmod(globalPos.x, Global.DIMENSION.x),
 		posmod(globalPos.y, Global.DIMENSION.y)
 	)
+func getLocalPos(globalPos: Vector2i) -> Vector2i:
+	return Vector2i(
+		posmod(globalPos.x, Global.DIMENSION.x),
+		posmod(globalPos.y, Global.DIMENSION.y),
+	)
+
+func isGlobalPosInChunkPos(gP: Vector2i, cP: Vector2i) -> bool:
+	return ( getChunkPos(gP) == cP )

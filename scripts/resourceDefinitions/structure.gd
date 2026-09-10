@@ -1,6 +1,7 @@
 class_name Structure extends Resource
 
 var blocks: Dictionary[Vector2i, StringName]
+var markedInvalid: bool = false ## If this is true, don't even bother checking if its valid or not.
 
 func generate(_globalPos: Vector2i) -> void:
 	pass

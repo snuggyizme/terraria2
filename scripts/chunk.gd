@@ -5,7 +5,7 @@ signal finishedTerrainMask(frameCount: int)
 signal finishedSetCellsTerrainConnect
 signal finishedTile
 
-signal chunkReady(times: Dictionary)
+signal chunkReady(times: Dictionary, skip: bool)
 
 var chunkPosition := Vector2i.ZERO
 var blocks: Dictionary[Vector2i, StringName] = {}
@@ -27,23 +27,30 @@ func _ready() -> void:
 	global_position = chunkPosition * Global.DIMENSION * Global.TILE_DIMENSION
 	
 	startTime = Time.get_ticks_msec()
-	generate()
-	update()
+	
+	var generated: bool = generate()
+	
+	if generated:
+		update()
+	else:
+		chunkReady.emit({}, true)
 
-func generate() -> void:
+func generate() -> bool:
 	blocks.clear()
 	
 	var context := GenerationContext.new(
-		chunkPosition, blocks, Global.worldGenerationContext
+		chunkPosition,
+		blocks,
+		Global.worldGenerationContext
 	)
 	
-	Generator.generate(context)
+	var carry: bool = Generator.generate(context, self)
 	
 	for x in range(-1, Global.DIMENSION.x + 1):
 		for y in range(-1, Global.DIMENSION.y + 1):
 			var coord := Vector2i(x, y)
 			
-			if blocks.has(coord) != null:
+			if blocks.has(coord):
 				if (
 					blocks[coord] != &"_" and
 					(
@@ -57,6 +64,8 @@ func generate() -> void:
 	
 	genTime = Time.get_ticks_msec() - startTime
 	finishedGen.emit()
+	
+	return carry
 
 func update() -> void:
 	await get_tree().process_frame
@@ -91,8 +100,8 @@ func update() -> void:
 	#                                                                                 ^^^^^^^^^^^^^^
 	#                                                                                  Me when wife 
 	
-	terrainMaskTime = Time.get_ticks_msec() - startTime - genTime- awaitTime  #
-	finishedTerrainMask.emit(frameCount) # 
+	terrainMaskTime = Time.get_ticks_msec() - startTime - genTime- awaitTime
+	finishedTerrainMask.emit(frameCount)
 	
 	
 	
@@ -106,8 +115,8 @@ func update() -> void:
 	
 	
 	
-	setCellsTerrainConnectTime = Time.get_ticks_msec() - startTime - genTime - awaitTime - terrainMaskTime #
-	finishedSetCellsTerrainConnect.emit() # 
+	setCellsTerrainConnectTime = Time.get_ticks_msec() - startTime - genTime - awaitTime - terrainMaskTime
+	finishedSetCellsTerrainConnect.emit()
 	
 	var fallbackBlock: Block = Global.blockDict[&"test"]
 	var emptyCoord: Vector2i = Vector2i(-1, -1)
@@ -126,15 +135,18 @@ func update() -> void:
 			
 			tileMap.set_cell(coord, block.sourceAtlas, coordFromCell)
 	
-	tileTime = Time.get_ticks_msec() - startTime - genTime - awaitTime - terrainMaskTime - setCellsTerrainConnectTime #
-	finishedTile.emit() #
+	tileTime = Time.get_ticks_msec() - startTime - genTime - awaitTime - terrainMaskTime - setCellsTerrainConnectTime
+	finishedTile.emit()
 	
-	chunkReady.emit({ #
-		&"genTime": genTime, #
-		&"terrainMaskTime": terrainMaskTime, #
-		&"setCellsTerrainConnectTime": setCellsTerrainConnectTime, #
-		&"tileTime": tileTime, #
-	}) #
+	chunkReady.emit(
+		{
+			&"genTime": genTime,
+			&"terrainMaskTime": terrainMaskTime,
+			&"setCellsTerrainConnectTime": setCellsTerrainConnectTime,
+			&"tileTime": tileTime,
+		},
+		false
+	)
 
 func calcBiomes() -> Array[Biome]:
 	var biomes: Array[Biome] = []
@@ -145,3 +157,33 @@ func calcBiomes() -> Array[Biome]:
 				biomes[biome.zOrder] = biome
 	
 	return biomes
+
+func getAtlasCoords() -> Dictionary[Vector2i, Vector2i]:
+	var export: Dictionary[Vector2i, Vector2i] = {}
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			export[coord] = tileMap.get_cell_atlas_coords(coord)
+	return export
+
+func getAtlasIndices() -> Dictionary[Vector2i, int]:
+	var export: Dictionary[Vector2i, int] = {}
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			export[coord] = tileMap.get_cell_source_id(coord)
+	return export
+
+func setChunkCells(
+	atlasIndices: Dictionary[Vector2i, int],
+	atlasCoords: Dictionary[Vector2i, Vector2i]
+) -> void:
+	for x in range(-1, Global.DIMENSION.x + 1):
+		for y in range(-1, Global.DIMENSION.y + 1):
+			var coord := Vector2i(x, y)
+			
+			tileMap.set_cell(
+				coord, atlasIndices[coord], atlasCoords[coord]
+			)

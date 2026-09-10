@@ -20,6 +20,7 @@ config/icon="uid://bb3cpvuoujh4u"
 SignalInterchange="*uid://1bdjul0dvtat"
 Global="*uid://coehlp4d3q6v"
 Generator="*uid://c8ghm7a6yvjuk"
+World="*uid://dyv7sw17pqvws"
 
 [display]
 
@@ -31,6 +32,7 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
+"res://assets/sprites/_debug/": "red",
 "res://biomes/": "orange",
 "res://blocks/": "yellow"
 }
